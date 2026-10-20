@@ -9,6 +9,7 @@ Mỗi ngày: 2h tech + 1h tiếng Anh. Mọi thứ đều nằm trong repo này 
 | `ROADMAP.md` | Kế hoạch 23 tuần (19/10/2026–31/3/2027), tick checkpoint |
 | `daily/` | Log mỗi ngày (`YYYY-MM-DD.md`, copy từ `templates/daily.md`) |
 | `notes/<chủ đề>/` | Note dài hạn, viết bằng lời của mình (ưu tiên tiếng Anh) |
+| `lessons/` | Bài đọc theo tuần và mảng (`w01-F.md` = tuần 1, Frontend), đọc ngay trong app qua nút "Đọc bài". Bài tuần 1 viết tay, các bài khác DeepSeek tạo khi bạn bấm "Tạo bài bằng AI" |
 | `weekly/` | Review tuần |
 | `projects/` | Project A (sản phẩm nhỏ có người dùng thật) + tính năng AI |
 | `labs/` | Repo thực hành vứt đi được (Redis, replica, RabbitMQ, k8s, Raft…), không lẫn vào project |

@@ -225,6 +225,35 @@ test('LLM endpoints report a missing key and upstream failures clearly', async (
   assert.equal((await api('POST', '/api/gen', { path: 'network/tcp-vs-udp.md' })).status, 502);
 });
 
+test('lessons: read curated, generate with AI, never overwrite curated', async () => {
+  hasKey = true;
+  const none = await api('GET', '/api/lesson?week=2&strand=F');
+  assert.equal(none.status, 200);
+  assert.equal(none.json.exists, false);
+  assert.match(none.json.topic, /JavaScript/);
+  assert.equal((await api('GET', '/api/lesson?week=2&strand=X')).status, 400);
+  assert.equal((await api('GET', '/api/lesson?week=50&strand=F')).status, 404);
+
+  llmReply = { markdown: `# Bài thử\n\n${'Nội dung bài học. '.repeat(60)}` };
+  const gen = await api('POST', '/api/lesson/gen', { week: 2, strand: 'F' });
+  assert.equal(gen.status, 200);
+  const made = await api('GET', '/api/lesson?week=2&strand=F');
+  assert.equal(made.json.exists, true);
+  assert.equal(made.json.source, 'ai');
+  assert.match(made.json.content, /^<!-- ai-generated -->\n# Bài thử/);
+  assert.equal((await api('POST', '/api/lesson/gen', { week: 2, strand: 'F' })).status, 409);
+  assert.equal((await api('POST', '/api/lesson/gen', { week: 2, strand: 'F', replace: true })).status, 200);
+
+  mkdirSync(pathsFor(dir).lessonsDir, { recursive: true });
+  writeFileSync(join(pathsFor(dir).lessonsDir, 'w03-A.md'), '# Viết tay\n');
+  const hand = await api('GET', '/api/lesson?week=3&strand=A');
+  assert.equal(hand.json.source, 'curated');
+  assert.equal((await api('POST', '/api/lesson/gen', { week: 3, strand: 'A', replace: true })).status, 409);
+
+  llmReply = { markdown: 'ngắn' };
+  assert.equal((await api('POST', '/api/lesson/gen', { week: 4, strand: 'S' })).status, 502);
+});
+
 test('quizArea reads the area from CLI and server log formats', () => {
   assert.equal(quizArea('\\notes\\network\\x.md'), 'network');
   assert.equal(quizArea('notes/devops/y.md'), 'devops');

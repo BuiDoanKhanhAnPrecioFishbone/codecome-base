@@ -25,6 +25,7 @@ Sửa giao diện: `npm run dev` (Vite, http://localhost:5173, tự proxy `/api`
 | Màn hình | Việc làm |
 |---|---|
 | Hôm nay | Thẻ đang chờ, kế hoạch trong ngày lấy từ `ROADMAP.md` theo thứ (tick lưu vào `data/daily.json`), theo mảng, 7 ngày qua |
+| Bài học (`/learn/<tuần>/<S\|F\|A\|D>`) | Đọc bài của slot ngay trong app (nút "Đọc bài" ở kế hoạch). Chưa có bài thì DeepSeek viết (~20–60 giây, ~4K token) và lưu vào `lessons/`; bài viết tay không bị ghi đè. Có nút đánh dấu xong slot và tạo note từ bài |
 | Ôn tập | Lật thẻ bằng `Space`/`Enter`, chấm `1–4` (quên/khó/nhớ/dễ), thẻ chấm "Quên" được hỏi lại một lần cuối buổi |
 | Notes | Xem/tìm/lọc note, tạo note mới từ template, soạn Markdown (`Ctrl+S`), AI đề xuất thẻ để bạn nhận/sửa/bỏ rồi lưu vào `## Cards` |
 | Phỏng vấn AI | AI hỏi theo note hoặc mảng, chấm 0–4, chỉ ra ý thiếu/sai, lưu câu sai thành thẻ |

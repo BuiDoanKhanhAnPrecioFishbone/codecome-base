@@ -4,6 +4,7 @@ import { join } from 'node:path';
 export interface Paths {
   root: string;
   notesDir: string;
+  lessonsDir: string;
   dataDir: string;
   stateFile: string;
   reviewsFile: string;
@@ -19,6 +20,7 @@ export function pathsFor(root: string): Paths {
   return {
     root,
     notesDir: join(root, 'notes'),
+    lessonsDir: join(root, 'lessons'),
     dataDir,
     stateFile: join(dataDir, 'state.json'),
     reviewsFile: join(dataDir, 'reviews.jsonl'),

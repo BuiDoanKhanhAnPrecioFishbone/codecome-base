@@ -3,6 +3,7 @@ import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from 'react-
 import type { Today as TodayData } from './api.ts';
 import { TodayProvider, useApi } from './lib.tsx';
 import NoteDetailPage from './pages/NoteDetail.tsx';
+import LessonPage from './pages/Lesson.tsx';
 import NotesPage from './pages/Notes.tsx';
 import ProgressPage from './pages/Progress.tsx';
 import QuizPage from './pages/Quiz.tsx';
@@ -62,6 +63,7 @@ function Layout() {
         <Routes>
           <Route path="/" element={<TodayPage />} />
           <Route path="/review" element={<ReviewPage />} />
+          <Route path="/learn/:week/:strand" element={<LessonPage />} />
           <Route path="/notes" element={<NotesPage />} />
           <Route path="/notes/*" element={<NoteDetailPage />} />
           <Route path="/quiz" element={<QuizPage />} />

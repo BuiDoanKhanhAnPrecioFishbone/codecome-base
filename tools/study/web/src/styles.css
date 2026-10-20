@@ -607,6 +607,18 @@ button {
   font-size: 14px;
   color: var(--muted);
 }
+.plan-read {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.plan-read:hover {
+  color: var(--purple);
+}
 .week-row {
   padding: 14px 0;
   border-bottom: 1px solid var(--hair);

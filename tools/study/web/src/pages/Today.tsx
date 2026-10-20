@@ -132,6 +132,11 @@ export default function TodayPage() {
                     <span className={it.done ? 'plan-title is-done' : 'plan-title'}>
                       {it.title}
                       {it.detail && <span className="plan-detail">{it.detail}</span>}
+                      {t.week && ['S', 'F', 'A', 'D'].includes(it.strand) && (
+                        <Link className="plan-read" to={`/learn/${t.week.n}/${it.strand}?slot=${it.slot}&date=${t.date}`}>
+                          Đọc bài →
+                        </Link>
+                      )}
                     </span>
                     <Pill area={s.area} label={s.label} />
                   </li>

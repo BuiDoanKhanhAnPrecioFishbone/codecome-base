@@ -56,7 +56,7 @@ Kiểm chứng: chọn ngẫu nhiên 1 thẻ/tuần do AI tạo, đối chiếu 
 
 Chi tiết cài đặt và cách dùng: [tools/study/README.md](../tools/study/README.md).
 
-**Web app** (dùng hằng ngày): `cd tools\study; npm run build; npm run serve`, mở http://localhost:4173. Sáu màn: Hôm nay (kế hoạch lấy từ `ROADMAP.md`), Ôn tập, Notes (viết note, AI đề xuất thẻ), Phỏng vấn AI, Tiến độ. Mọi thứ ghi ra file trong `notes/` và `data/`, không có tài khoản hay cloud.
+**Web app** (dùng hằng ngày): `cd tools\study; npm run build; npm run serve`, mở http://localhost:4173. Sáu màn: Hôm nay (kế hoạch lấy từ `ROADMAP.md`, mỗi slot có nút "Đọc bài" mở bài đọc ngay trong app), Ôn tập, Notes (viết note, AI đề xuất thẻ), Phỏng vấn AI, Tiến độ. Mọi thứ ghi ra file trong `notes/` và `data/`, không có tài khoản hay cloud.
 
 **CLI** (cùng dữ liệu, tiện khi đang ở terminal):
 

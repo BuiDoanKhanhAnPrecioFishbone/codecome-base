@@ -4,7 +4,7 @@ import { appendCards, listNoteFiles, parseCards, scanNotes } from '../cards.ts';
 import { chatJson, loadConfig, type JsonRequest, type LlmConfig } from '../llm.ts';
 import type { Paths } from '../paths.ts';
 import {
-  GEN_SYSTEM, GRADE_SYSTEM, QUIZ_SYSTEM, genUser, gradeUser, parseGen, parseGrade, parseQuiz, quizUser,
+  GEN_SYSTEM, GRADE_SYSTEM, LESSON_SYSTEM, QUIZ_SYSTEM, genUser, gradeUser, lessonUser, parseGen, parseGrade, parseLesson, parseQuiz, quizUser,
 } from '../prompts.ts';
 import { buildQueue, countNewDoneToday, isDue, shuffle, startOfLocalDay } from '../queue.ts';
 import { computeStats } from '../stats.ts';
@@ -14,6 +14,7 @@ import {
 } from '../store.ts';
 import type { Grade } from '../store.ts';
 import { HttpError, createNote, listNotes, readNote, resolveNotePath, titleOf, writeNote } from './notes.ts';
+import { STRAND_LABEL, lessonPath, parseLessonKey, readLesson, topicOf, writeLesson } from './lessons.ts';
 import { addDays, dayKey, loadRoadmap, planFor, weekOf, type Week } from './roadmap.ts';
 
 const MAX_NOTE_CHARS = 60_000;
@@ -238,6 +239,33 @@ export function createApp(ctx: Ctx) {
       appendJsonl(paths.reviewsFile, applyReview(card, rating as Grade, ctx.now()));
       saveState(paths.stateFile, state);
       return ok({ next: card.fsrs.due.toISOString() });
+    },
+
+    'GET /api/lesson': (q) => {
+      const { week, strand } = parseLessonKey(q.get('week'), q.get('strand'));
+      const w = loadRoadmap(paths.roadmapFile).find((x) => x.n === week);
+      if (!w) throw new HttpError(404, 'Không có tuần này trong ROADMAP.md');
+      const lesson = readLesson(lessonPath(paths.lessonsDir, week, strand));
+      return ok({ week, strand, topic: topicOf(w, strand), exists: lesson !== null, ...(lesson ?? {}) });
+    },
+
+    'POST /api/lesson/gen': async (_q, body) => {
+      const { week, strand } = parseLessonKey(body.week, body.strand);
+      const w = loadRoadmap(paths.roadmapFile).find((x) => x.n === week);
+      if (!w) throw new HttpError(404, 'Không có tuần này trong ROADMAP.md');
+      const file = lessonPath(paths.lessonsDir, week, strand);
+      const existing = readLesson(file);
+      if (existing?.source === 'curated') throw new HttpError(409, 'Bài này đã được viết sẵn, không ghi đè.');
+      if (existing && body.replace !== true) throw new HttpError(409, 'Bài đã tồn tại');
+      const { data, usage } = await callLlm<string>({
+        system: LESSON_SYSTEM,
+        user: lessonUser(topicOf(w, strand), STRAND_LABEL[strand], week),
+        validate: parseLesson,
+        maxTokens: 7000,
+      });
+      const markdown = data.startsWith('<!-- ai-generated -->') ? data : `<!-- ai-generated -->\n${data}`;
+      writeLesson(paths.lessonsDir, file, markdown);
+      return ok({ usage });
     },
 
     'GET /api/notes': () => {
