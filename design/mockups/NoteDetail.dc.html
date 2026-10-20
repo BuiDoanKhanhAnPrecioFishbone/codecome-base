@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap">
+  <style>body { margin: 0; background: #FFFFFF; }</style>
+</helmet>
+<div style="width: 1440px; min-height: 1080px; background: #FFFFFF; font-family: Inter, sans-serif; font-size: 16px; line-height: 1.5; color: rgba(0,0,0,0.87); box-sizing: border-box;">
+
+  <header style="display: flex; align-items: center; gap: 32px; height: 72px; padding: 0 48px; border-bottom: 1px solid #E3E5EE; background: #FFFFFF; box-sizing: border-box;">
+    <span style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; letter-spacing: -0.02em; color: #0B0D1A;"><span style="width: 28px; height: 28px; border-radius: 6px; background: #0B0D1A; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px;">aj</span>amberjack</span>
+    <nav style="display: flex; gap: 24px; font-size: 15px; font-weight: 500;">
+      <span style="display: flex; align-items: center; height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: rgba(0,0,0,0.70);">Hôm nay</span>
+      <span style="display: flex; align-items: center; height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: rgba(0,0,0,0.70);">Ôn tập</span>
+      <span style="display: flex; align-items: center; height: 72px; box-sizing: border-box; border-bottom: 2px solid #0B0D1A; color: #0B0D1A; font-weight: 600;">Notes</span>
+      <span style="display: flex; align-items: center; height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: rgba(0,0,0,0.70);">Phỏng vấn AI</span>
+      <span style="display: flex; align-items: center; height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: rgba(0,0,0,0.70);">Tiến độ</span>
+    </nav>
+    <span style="margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #5956C2;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #5956C2; display: inline-block;"></span>STREAK 12 NGÀY</span>
+    <span style="display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 18px; border-radius: 6px; background: #0B0D1A; color: #FFFFFF; font-size: 15px; font-weight: 600;">Ôn ngay · 18 thẻ</span>
+  </header>
+
+  <div style="max-width: 1200px; margin: 0 auto; padding: 32px 0 72px; display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 56px;">
+
+    <article>
+      <p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; color: rgba(0,0,0,0.70);">NOTES / NETWORK / <span style="color: #0B0D1A; font-weight: 700;">TCP-VS-UDP.MD</span></p>
+      <div style="margin-top: 16px; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px;">
+        <div>
+          <span style="display: flex; align-items: center; gap: 10px;"><span style="padding: 2px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; background: #CDE6F7;">network</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; color: rgba(0,0,0,0.70);">SỬA 20/10/2026 · 8 THẺ · LAB: labs/tcp-udp</span></span>
+          <h1 style="margin: 14px 0 0; font-size: 44px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #0B0D1A;">TCP vs UDP</h1>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+          <span style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 6px; border: 1px solid #6B6E7A; font-size: 15px; font-weight: 600; color: #0B0D1A; box-sizing: border-box;">Sửa</span>
+          <span style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 6px; border: 1px solid #6B6E7A; font-size: 15px; font-weight: 600; color: #0B0D1A; box-sizing: border-box;">Phỏng vấn từ note</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 32px; font-size: 17px; line-height: 1.7; color: rgba(0,0,0,0.87);">
+        <h2 style="margin: 0 0 10px; font-size: 24px; font-weight: 700; color: #0B0D1A;">Vấn đề nó giải quyết</h2>
+        <p style="margin: 0 0 24px;">IP chỉ đưa gói tin tới máy đích, không đảm bảo thứ tự hay việc gói có tới hay không. TCP và UDP là hai cách khác nhau để xây trên IP: một bên trả giá bằng độ trễ để có sự tin cậy, một bên bỏ sự tin cậy để lấy tốc độ.</p>
+        <h2 style="margin: 0 0 10px; font-size: 24px; font-weight: 700; color: #0B0D1A;">Cách hoạt động</h2>
+        <p style="margin: 0 0 14px;">TCP bắt tay 3 bước (SYN, SYN-ACK, ACK) trước khi gửi dữ liệu, đánh số byte, gửi lại khi mất và giảm tốc khi mạng nghẽn.</p>
+        <pre style="margin: 0 0 24px; padding: 16px 20px; background: #0B0D1A; color: #E3E5EE; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 14px; line-height: 1.6; overflow: hidden;">client  ── SYN ───────▶  server
+client  ◀── SYN-ACK ──  server
+client  ── ACK ───────▶  server   (bắt đầu gửi dữ liệu)</pre>
+        <h2 style="margin: 0 0 10px; font-size: 24px; font-weight: 700; color: #0B0D1A;">Khi nào dùng / khi nào không</h2>
+        <ul style="margin: 0 0 24px; padding-left: 22px;">
+          <li><b style="font-weight: 600;">TCP:</b> web, API, database, mọi thứ cần đúng và đủ.</li>
+          <li><b style="font-weight: 600;">UDP:</b> game, thoại/video thời gian thực, DNS: mất một gói còn hơn chờ gửi lại.</li>
+        </ul>
+        <h2 style="margin: 0 0 10px; font-size: 24px; font-weight: 700; color: #0B0D1A;">Trade-off</h2>
+        <div style="border: 1px solid #C5C9DC; border-radius: 6px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 12px 18px; background: #F8F8FC; border-bottom: 1px solid #E3E5EE; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #0B0D1A;"><span></span><span>TCP</span><span>UDP</span></div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 12px 18px; border-bottom: 1px solid #E3E5EE; font-size: 15px;"><span style="font-weight: 600;">Độ tin cậy</span><span>Đảm bảo, đúng thứ tự</span><span>Không đảm bảo</span></div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 12px 18px; font-size: 15px;"><span style="font-weight: 600;">Độ trễ</span><span>Cao hơn (bắt tay, retransmit)</span><span>Thấp</span></div>
+        </div>
+      </div>
+    </article>
+
+    <aside>
+      <div style="position: sticky; top: 24px;">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px;">
+          <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #0B0D1A;">Thẻ trong note</h2>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; color: rgba(0,0,0,0.70);">8 THẺ · 4 ĐẾN HẠN</span>
+        </div>
+        <div style="border: 1px solid #C5C9DC; border-radius: 6px;">
+          <div style="padding: 14px 18px; border-bottom: 1px solid #E3E5EE;"><div style="font-size: 15px; font-weight: 600; color: #0B0D1A;">TCP khác UDP ở điểm nào?</div><div style="margin-top: 6px; display: flex; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(0,0,0,0.70);"><span style="color: #5956C2; font-weight: 700;">ĐẾN HẠN</span><span>ổn định 6 ngày</span></div></div>
+          <div style="padding: 14px 18px; border-bottom: 1px solid #E3E5EE;"><div style="font-size: 15px; font-weight: 600; color: #0B0D1A;">Khi nào chọn UDP?</div><div style="margin-top: 6px; display: flex; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(0,0,0,0.70);"><span style="color: #5956C2; font-weight: 700;">ĐẾN HẠN</span><span>quên 4 lần</span></div></div>
+          <div style="padding: 14px 18px; border-bottom: 1px solid #E3E5EE;"><div style="font-size: 15px; font-weight: 600; color: #0B0D1A;">Bắt tay 3 bước để làm gì?</div><div style="margin-top: 6px; display: flex; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(0,0,0,0.70);"><span>ôn lại 24/10</span></div></div>
+          <div style="padding: 14px 18px;"><span style="font-size: 14px; font-weight: 600; color: #0B0D1A; text-decoration: underline; text-underline-offset: 3px;">Xem cả 8 thẻ</span></div>
+        </div>
+
+        <div style="margin-top: 28px; border: 1px solid #0B0D1A; border-radius: 6px; background: #FFFFFF;">
+          <div style="padding: 18px 18px 14px; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 16px; font-weight: 700; color: #0B0D1A;">AI đề xuất thẻ</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; color: rgba(0,0,0,0.70);">DEEPSEEK · 1.2K TOKEN</span>
+          </div>
+          <div style="padding: 0 18px 16px; border-bottom: 1px solid #E3E5EE;">
+            <div style="font-size: 15px; font-weight: 600; color: #0B0D1A;">Vì sao UDP nhanh hơn TCP?</div>
+            <div style="margin-top: 4px; font-size: 14px; color: rgba(0,0,0,0.70);">Không bắt tay, không retransmit, không chặn hàng đợi khi mất gói.</div>
+            <div style="margin-top: 10px; display: flex; gap: 8px;">
+              <span style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 6px; background: #0B0D1A; color: #FFFFFF; font-size: 13px; font-weight: 600;">Nhận</span>
+              <span style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 6px; border: 1px solid #6B6E7A; font-size: 13px; font-weight: 600; box-sizing: border-box;">Sửa</span>
+              <span style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 6px; border: 1px solid #C5C9DC; font-size: 13px; font-weight: 600; box-sizing: border-box; color: rgba(0,0,0,0.70);">Bỏ</span>
+            </div>
+          </div>
+          <div style="padding: 14px 18px 16px; border-bottom: 1px solid #E3E5EE; background: #EFEFFB;">
+            <div style="font-size: 15px; font-weight: 600; color: #0B0D1A;">TCP chống nghẽn mạng bằng cách nào?</div>
+            <div style="margin-top: 4px; font-size: 14px; color: rgba(0,0,0,0.70);">Đã nhận (sẽ ghi vào mục Cards của note)</div>
+          </div>
+          <div style="padding: 14px 18px 18px; display: flex; gap: 8px;">
+            <span style="display: inline-flex; align-items: center; justify-content: center; flex: 1; height: 44px; border-radius: 6px; background: #0B0D1A; color: #FFFFFF; font-size: 15px; font-weight: 600;">Lưu 1 thẻ vào note</span>
+            <span style="display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 16px; border-radius: 6px; border: 1px solid #6B6E7A; font-size: 15px; font-weight: 600; box-sizing: border-box;">Tạo lại</span>
+          </div>
+        </div>
+        <p style="margin: 12px 0 0; font-size: 13px; color: rgba(0,0,0,0.70);">AI chỉ dùng nội dung trong note này. Bạn duyệt từng thẻ trước khi lưu.</p>
+      </div>
+    </aside>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

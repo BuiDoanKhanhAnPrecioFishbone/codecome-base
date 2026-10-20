@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap">
+  <style>body { margin: 0; background: #FFFFFF; }</style>
+</helmet>
+<div style="width: 1440px; min-height: 1060px; background: #F8F8FC; font-family: Inter, sans-serif; font-size: 16px; line-height: 1.5; color: rgba(0,0,0,0.87); box-sizing: border-box;">
+
+  <header style="display: flex; align-items: center; gap: 32px; height: 72px; padding: 0 48px; border-bottom: 1px solid #E3E5EE; background: #FFFFFF; box-sizing: border-box;">
+    <span style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; letter-spacing: -0.02em; color: #0B0D1A;"><span style="width: 28px; height: 28px; border-radius: 6px; background: #0B0D1A; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px;">aj</span>amberjack</span>
+    <nav style="display: flex; gap: 24px; font-size: 15px; font-weight: 500;">
+      <span style="display: flex; align-items: center; height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: rgba(0,0,0,0.70);">Hôm nay</span>
+      <span style="display: flex; align-items: center; height: 72px; box-sizing: border-box; border-bottom: 2px solid #0B0D1A; color: #0B0D1A; font-weight: 600;">Ôn tập</span>
+      <span style="display: flex; align-items: center; height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: rgba(0,0,0,0.70);">Notes</span>
+      <span style="display: flex; align-items: center; height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: rgba(0,0,0,0.70);">Phỏng vấn AI</span>
+      <span style="display: flex; align-items: center; height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: rgba(0,0,0,0.70);">Tiến độ</span>
+    </nav>
+    <span style="margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #5956C2;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #5956C2; display: inline-block;"></span>STREAK 12 NGÀY</span>
+    <span style="display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 18px; border-radius: 6px; background: #0B0D1A; color: #FFFFFF; font-size: 15px; font-weight: 600;">Ôn ngay · 11 thẻ</span>
+  </header>
+
+  <main style="max-width: 780px; margin: 0 auto; padding: 40px 0 64px;">
+
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #0B0D1A;">7 / 18</span>
+      <span style="flex: 1; height: 6px; border-radius: 3px; background: #E3E5EE; position: relative;"><span style="position: absolute; left: 0; top: 0; bottom: 0; width: 39%; border-radius: 3px; background: #0B0D1A;"></span></span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; color: rgba(0,0,0,0.70);">~5 PHÚT CÒN LẠI</span>
+      <span style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 6px; border: 1px solid #6B6E7A; background: #FFFFFF; box-sizing: border-box;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B0D1A" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></span>
+    </div>
+
+    <div style="margin-top: 24px; background: #FFFFFF; border: 1px solid #C5C9DC; border-radius: 6px;">
+      <div style="padding: 36px 40px 28px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #0B0D1A;">CÂU HỎI</span>
+          <span style="padding: 2px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; background: #CDE6F7;">network</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; color: rgba(0,0,0,0.70);">tcp-vs-udp.md · quên 2 lần</span>
+        </div>
+        <h1 style="margin: 18px 0 0; font-size: 30px; font-weight: 700; line-height: 1.25; letter-spacing: -0.015em; color: #0B0D1A;">Vì sao game online và DNS thường chọn UDP thay vì TCP?</h1>
+      </div>
+      <div style="border-top: 1px solid #E3E5EE; padding: 28px 40px 32px; background: #FFFFFF;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #5956C2;">ĐÁP ÁN</span>
+        <p style="margin: 12px 0 0; font-size: 19px; line-height: 1.6; color: rgba(0,0,0,0.87);">Vì độ trễ quan trọng hơn độ tin cậy: UDP không bắt tay 3 bước, không retransmit và không chặn hàng đợi khi mất gói. Mất một gói game là chuyện nhỏ, còn chờ gửi lại sẽ gây giật.</p>
+        <div style="margin-top: 20px; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #F8F8FC; border-radius: 6px; font-size: 14px; color: rgba(0,0,0,0.70);"><span>Từ note của bạn: <b style="color: #0B0D1A; font-weight: 600;">notes/network/tcp-vs-udp.md</b></span><span style="font-weight: 600; color: #0B0D1A; text-decoration: underline; text-underline-offset: 3px;">Mở note</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+      <div style="background: #FFFFFF; border: 1px solid #6B6E7A; border-radius: 6px; padding: 14px 16px; text-align: center;"><div style="font-size: 16px; font-weight: 600; color: #0B0D1A;">Quên</div><div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(0,0,0,0.70);">1 · lại sau 1 ngày</div></div>
+      <div style="background: #FFFFFF; border: 1px solid #6B6E7A; border-radius: 6px; padding: 14px 16px; text-align: center;"><div style="font-size: 16px; font-weight: 600; color: #0B0D1A;">Khó</div><div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(0,0,0,0.70);">2 · 3 ngày</div></div>
+      <div style="background: #0B0D1A; border: 1px solid #0B0D1A; border-radius: 6px; padding: 14px 16px; text-align: center;"><div style="font-size: 16px; font-weight: 600; color: #FFFFFF;">Nhớ</div><div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.80);">3 · 6 ngày</div></div>
+      <div style="background: #FFFFFF; border: 1px solid #6B6E7A; border-radius: 6px; padding: 14px 16px; text-align: center;"><div style="font-size: 16px; font-weight: 600; color: #0B0D1A;">Dễ</div><div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(0,0,0,0.70);">4 · 14 ngày</div></div>
+    </div>
+    <p style="margin: 16px 0 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; color: rgba(0,0,0,0.70);">PHÍM TẮT: SPACE = HIỆN ĐÁP ÁN · 1–4 = CHẤM · E = SỬA THẺ · Z = HOÀN TÁC</p>
+
+    <div style="margin-top: 40px; padding-top: 24px; border-top: 1px dashed #C5C9DC;">
+      <p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #0B0D1A;">TRẠNG THÁI TRƯỚC KHI LẬT (ghi chú wireframe)</p>
+      <div style="margin-top: 12px; background: #FFFFFF; border: 1px solid #C5C9DC; border-radius: 6px; padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+        <span style="font-size: 20px; font-weight: 600; color: #0B0D1A;">Vì sao game online và DNS thường chọn UDP thay vì TCP?</span>
+        <span style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 6px; background: #0B0D1A; color: #FFFFFF; font-size: 15px; font-weight: 600; white-space: nowrap;">Hiện đáp án · Space</span>
+      </div>
+      <p style="margin: 12px 0 0; font-size: 14px; color: rgba(0,0,0,0.70);">Hết phiên: màn tóm tắt (số thẻ, % nhớ, thẻ chấm Quên được hỏi lại một lần cuối buổi, không đổi lịch).</p>
+    </div>
+  </main>
+</div>
+</x-dc>
+</body>
+</html>

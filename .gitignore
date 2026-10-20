@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+*.log
+tools/study/web/dist/
+
+# lịch ôn cá nhân: backup bằng `study cloud push`, không đưa lên repo công khai
+/data/
+
+# design canvas: keep sources, ignore assembled page
+/design/mockups/*.html
+!/design/mockups/*.dc.html

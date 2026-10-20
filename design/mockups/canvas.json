@@ -1,0 +1,79 @@
+{
+  "title": "Amberjack Study",
+  "pages": [
+    {
+      "id": "page-1",
+      "name": "Desktop · v1"
+    }
+  ],
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "title": "1. Hôm nay (dashboard)",
+      "page": "page-1",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1600
+    },
+    {
+      "file": "Review.dc.html",
+      "title": "2. Ôn tập (đã lật thẻ)",
+      "page": "page-1",
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 1060
+    },
+    {
+      "file": "Notes.dc.html",
+      "title": "3. Notes (slider, bộ lọc, lưới)",
+      "page": "page-1",
+      "x": 3040,
+      "y": 0,
+      "w": 1440,
+      "h": 1680
+    },
+    {
+      "file": "NoteDetail.dc.html",
+      "title": "4. Chi tiết note + thẻ + AI đề xuất",
+      "page": "page-1",
+      "x": 0,
+      "y": 1800,
+      "w": 1440,
+      "h": 1080
+    },
+    {
+      "file": "Quiz.dc.html",
+      "title": "5. Phỏng vấn AI (đã chấm)",
+      "page": "page-1",
+      "x": 1520,
+      "y": 1800,
+      "w": 1440,
+      "h": 1000
+    },
+    {
+      "file": "Progress.dc.html",
+      "title": "6. Tiến độ",
+      "page": "page-1",
+      "x": 3040,
+      "y": 1800,
+      "w": 1440,
+      "h": 1420
+    }
+  ],
+  "annotations": [
+    {
+      "id": "note-1",
+      "page": "page-1",
+      "x": 0,
+      "y": -300,
+      "w": 1300,
+      "text": "Amberjack Study · 6 màn desktop, style lấy từ mockup Knowledge (Inter + JetBrains Mono, mực #0B0D1A, viền mảnh, bo 6px, blob pastel ở hero, nhãn mono viết hoa).\nLuồng chính: Hôm nay → Ôn tập (hằng ngày, ~15') → Notes (đọc, sửa, sinh thẻ bằng AI) → Phỏng vấn AI → Tiến độ.\nMàu mảng (pill): network #CDE6F7 · devops #FFE0C4 · database #CFEFE0 · system-design #CECDF2 · ai #F8D3E0 · dsa #FBEFB8 · frontend #D4F0EA · architecture #FADBD0 · interview #E3E5EE. Accent #5956C2 chỉ cho trạng thái 'đến hạn' và 'hôm nay'.\nCần bạn chốt: (1) bố cục Hôm nay có ổn không, (2) có cần bản mobile cho màn Ôn tập không, (3) 5 mục nav đã đủ chưa."
+    }
+  ],
+  "launch": {
+    "view": "canvas",
+    "page": "page-1"
+  }
+}
