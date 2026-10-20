@@ -52,6 +52,10 @@ Nguyên tắc: **AI hỏi và chấm, bạn trả lời.** AI giải thay là c�
 
 Kiểm chứng: chọn ngẫu nhiên 1 thẻ/tuần do AI tạo, đối chiếu với tài liệu gốc. AI có thể sai; note do bạn viết từ tài liệu gốc mới là chuẩn.
 
+**Luyện kiểu "AI-allowed" (phỏng vấn 2026 chấm cả cách điều khiển + kiểm chứng AI):** mỗi tuần 1 bài D cho AI giải, bạn phải (1) tìm bug hoặc case làm nó sai, (2) nói được độ phức tạp và vì sao đúng, (3) viết test phản biện. Ghi lại kiểu lỗi AI hay mắc vào `notes/interview/`.
+
+**Radar xu hướng (CN đầu tháng, 30'):** đọc Thoughtworks Radar / Stack Overflow Survey / blog React-.NET-Anthropic, ghi `notes/trends/YYYY-MM.md`: *mới gì → giải vấn đề gì → có đáng học không → 1 thẻ Anki*. Chỉ đưa vào roadmap khi có ≥2 nguồn, giải vấn đề thật của bạn, và chạy thử được trong 1 buổi; đổi chỗ chứ không thêm chồng.
+
 ## 5. App `study` (trong `tools/study/`)
 
 Chi tiết cài đặt và cách dùng: [tools/study/README.md](../tools/study/README.md).

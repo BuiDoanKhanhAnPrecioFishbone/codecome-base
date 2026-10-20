@@ -83,6 +83,8 @@ Structure (use these ## headings, in this order):
 Rules:
 - Start with a single "# " title line. Start the markdown with the line <!-- ai-generated -->.
 - Be accurate. If something is version-specific or you are unsure, say so instead of guessing.
+- Teach the fundamentals first, then add a short "## Xu hướng 2026" section (before the interview questions) with what changed recently, what interviewers now ask, and what is hype or still unproven. Mark claims you are unsure about.
+- Include 1 or 2 interview questions about verifying AI-generated code or AI-assisted work on this topic, when it is relevant.
 - Use tables and code blocks where they clarify. No raw HTML other than that first comment.`;
 
 export function lessonUser(topic: string, strandLabel: string, week: number): string {
