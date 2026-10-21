@@ -34,8 +34,9 @@ export default function LessonPage() {
   const [status, setStatus] = useState<number>();
   const [area, setArea] = useState(DEFAULT_AREA[strand] ?? 'network');
 
-  const planItem = today.data?.plan.find((p) => p.slot === slot);
-  const done = planItem?.done ?? false;
+  const planItem = today.data?.plan.find((p) => p.slot === slot && date === today.data?.date);
+  const missed = today.data?.backlog.find((b) => b.slot === slot && b.date === date);
+  const done = planItem ? planItem.done : slot && date ? !missed : false;
 
   if (lesson.error) {
     return (

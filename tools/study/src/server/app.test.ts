@@ -120,6 +120,18 @@ test('today: week 1 plan, due count and phase', async () => {
   assert.equal(json.totalWeeks, 23);
 });
 
+test('today: missed study items carry over until ticked', async () => {
+  let t = await api('GET', '/api/today');
+  const mon = t.json.backlog.filter((b: any) => b.date === '2026-10-19');
+  assert.deepEqual(mon.map((b: any) => b.slot), ['d', 's']);
+  assert.equal(mon[0].week, 1);
+  assert.ok(t.json.backlog.every((b: any) => b.strand !== 'REV' && b.strand !== 'EN'));
+  await api('POST', '/api/daily', { date: '2026-10-19', slot: 'd', done: true });
+  t = await api('GET', '/api/today');
+  assert.deepEqual(t.json.backlog.map((b: any) => b.slot), ['s']);
+  await api('POST', '/api/daily', { date: '2026-10-19', slot: 'd', done: false });
+});
+
 test('daily ticks persist and validate', async () => {
   let r = await api('POST', '/api/daily', { date: '2026-10-20', slot: 'f1', done: true });
   assert.deepEqual(r.json.done, ['f1']);

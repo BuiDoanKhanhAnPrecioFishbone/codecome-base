@@ -98,6 +98,38 @@ export function createApp(ctx: Ctx) {
     return { week, doneMin, totalMin };
   }
 
+  /** Study items from the last 7 days that were never ticked. English and review are daily habits, so they are not carried over. */
+  async function missedItems(weeks: Week[], key: string, today: { strand: string; title: string }[]) {
+    const first = weeks[0]?.start;
+    if (!first) return [];
+    const daily = await storage.loadDaily();
+    const from = addDays(key, -7) < first ? first : addDays(key, -7);
+    const studied = new Set(today.map((it) => `${it.strand}|${it.title}`));
+    const seen = new Set<string>();
+    const out: { date: string; week: number; slot: string; strand: string; minutes: number; title: string; detail?: string }[] = [];
+    for (let day = from; day < key; day = addDays(day, 1)) {
+      const w = weekOf(weeks, day);
+      if (!w) continue;
+      const done = new Set(daily[day] ?? []);
+      for (const it of planFor(w, day)) {
+        if (it.strand === 'REV' || it.strand === 'EN') continue;
+        if (done.has(it.slot)) studied.add(`${it.strand}|${it.title}`);
+        else seen.add(JSON.stringify([day, it.slot]));
+      }
+    }
+    for (let day = from; day < key; day = addDays(day, 1)) {
+      const w = weekOf(weeks, day);
+      if (!w) continue;
+      for (const it of planFor(w, day)) {
+        const id = `${it.strand}|${it.title}`;
+        if (!seen.has(JSON.stringify([day, it.slot])) || studied.has(id)) continue;
+        studied.add(id);
+        out.push({ date: day, week: w.n, ...it });
+      }
+    }
+    return out;
+  }
+
   function areaRows(cards: StoredCard[], reviews: ReviewEntry[], quiz: QuizLog[], now: Date) {
     const since = startOfLocalDay(now).getTime() - 29 * 86_400_000;
     const rows = new Map<string, { total: number; due: number; mature: number; remembered: number; quizN: number; quizSum: number }>();
@@ -157,6 +189,7 @@ export function createApp(ctx: Ctx) {
       const queue = buildQueue(cards, now, { maxNew: 10, maxTotal: 40, newDoneToday: countNewDoneToday(reviews, now) });
       const done = new Set((await storage.loadDaily())[key] ?? []);
       const plan = planFor(week, key).map((it) => ({ ...it, done: done.has(it.slot) }));
+      const backlog = await missedItems(weeks, key, plan);
       const first = weeks[0]?.start;
       const phase = !first || key < first ? 'before' : week ? 'active' : 'after';
       return ok({
@@ -165,6 +198,7 @@ export function createApp(ctx: Ctx) {
         totalWeeks: weeks.length,
         phase,
         plan,
+        backlog,
         queueCount: queue.length,
         stats: { streak: stats.streak, retention30: stats.retention30, total: stats.total },
         areas: areaRows(cards, reviews, await readQuiz(), now),

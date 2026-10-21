@@ -68,12 +68,19 @@ export interface WeakCard {
   lapses: number;
 }
 
+export interface BacklogItem extends Omit<PlanItem, 'done'> {
+  date: string;
+  week: number;
+  done?: boolean;
+}
+
 export interface Today {
   date: string;
   week: Week | null;
   totalWeeks: number;
   phase: 'before' | 'active' | 'after';
   plan: PlanItem[];
+  backlog: BacklogItem[];
   queueCount: number;
   stats: { streak: number; retention30: number | null; total: number };
   areas: AreaRow[];

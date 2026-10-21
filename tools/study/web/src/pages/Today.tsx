@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { post, type PlanItem, type Strand } from '../api.ts';
+import { post, type BacklogItem, type PlanItem, type Strand } from '../api.ts';
 import {
   ErrorBox, Eyebrow, Hero, Loading, Pill, fmtDM, fmtDay, fmtMinutes, msg, noteLink, pct, useTitle, useToday, weekdayLong, weekdayShort,
 } from '../lib.tsx';
@@ -20,6 +20,7 @@ export default function TodayPage() {
   const today = useToday();
   const [override, setOverride] = useState<Record<string, boolean>>({});
   const [error, setError] = useState('');
+  const [cleared, setCleared] = useState<Record<string, boolean>>({});
 
   if (!today.data) {
     return (
@@ -46,6 +47,20 @@ export default function TodayPage() {
       setError(msg(e));
     }
   }
+
+  async function clearBacklog(it: BacklogItem) {
+    setCleared((c) => ({ ...c, [`${it.date}|${it.slot}`]: true }));
+    setError('');
+    try {
+      await post('/api/daily', { date: it.date, slot: it.slot, done: true });
+      today.reload();
+    } catch (e) {
+      setCleared((c) => ({ ...c, [`${it.date}|${it.slot}`]: false }));
+      setError(msg(e));
+    }
+  }
+
+  const backlog = t.backlog.filter((b) => !cleared[`${b.date}|${b.slot}`]);
 
   const eyebrow =
     t.phase === 'before'
@@ -143,7 +158,42 @@ export default function TodayPage() {
                 );
               })}
             </ul>
-            <p className="note">Kế hoạch lấy từ ROADMAP.md theo ngày trong tuần; tick của bạn lưu vào data/daily.json.</p>
+            <p className="note">Kế hoạch lấy từ ROADMAP.md theo ngày trong tuần; tick của bạn được lưu lại.</p>
+
+            {backlog.length > 0 && (
+              <>
+                <div className="sec-head mt28">
+                  <h2 className="h2">Bài chưa học</h2>
+                  <span className="mono muted">
+                    {backlog.length} MỤC · {fmtMinutes(backlog.reduce((s, b) => s + b.minutes, 0))}
+                  </span>
+                </div>
+                <ul className="list-card" aria-label="Bài chưa học từ những ngày trước">
+                  {backlog.map((it) => {
+                    const s = STRAND[it.strand];
+                    return (
+                      <li key={`${it.date}|${it.slot}`} className="plan-row">
+                        <button className="check" role="checkbox" aria-checked={false} aria-label={`Đánh dấu đã học: ${it.title}`} onClick={() => clearBacklog(it)} />
+                        <span className="mono strong plan-min">{it.minutes}'</span>
+                        <span className="plan-title">
+                          {it.title}
+                          <span className="plan-detail">
+                            {weekdayLong(it.date)} {fmtDay(it.date)} · bỏ lỡ
+                          </span>
+                          {['S', 'F', 'A', 'D'].includes(it.strand) && (
+                            <Link className="plan-read" to={`/learn/${it.week}/${it.strand}?slot=${it.slot}&date=${it.date}`}>
+                              Đọc bài →
+                            </Link>
+                          )}
+                        </span>
+                        <Pill area={s.area} label={s.label} />
+                      </li>
+                    );
+                  })}
+                </ul>
+                <p className="note">Chỉ hiện các mục học chưa tick trong 7 ngày qua. Tick xong sẽ biến mất khỏi danh sách.</p>
+              </>
+            )}
           </div>
 
           <aside>
