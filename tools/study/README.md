@@ -85,7 +85,17 @@ A: ...
 - ID thẻ = hash của câu hỏi. **Sửa câu hỏi sẽ tạo thẻ mới** (thẻ cũ thành mồ côi); sửa đáp án thì giữ nguyên lịch ôn.
 - Mảng (area) = thư mục con đầu tiên dưới `notes/`.
 
-## Sao lưu lên Supabase (tuỳ chọn)
+## Supabase là nguồn chính + deploy Vercel
+
+Khi có `STUDY_DATABASE_URL` (trong `.env` hoặc biến môi trường), web app lưu notes, bài học, thẻ FSRS, log ôn/phỏng vấn và checklist vào các bảng `study.notes|lessons|kv|reviews|quiz` (RLS bật, không cấp quyền cho `anon`/`authenticated`). `STUDY_STORAGE=file` ép về file local, `STUDY_STORAGE=pg` ép dùng Supabase. `/api/status` trả `storage` cho biết đang dùng gì.
+
+- `npm run study -- cloud init`: tạo/cập nhật schema (chạy mọi `supabase/*.sql` theo thứ tự).
+- `cloud migrate [--force]`: chuyển notes/lessons/data từ file lên bảng (từ chối nếu bảng đã có dữ liệu, trừ khi `--force`).
+- `cloud export`: kéo dữ liệu từ bảng về file để CLI (`review`, `gen`, `quiz`) dùng. CLI vẫn đọc/ghi file nên **không tự đồng bộ** với web app.
+
+Deploy Vercel (root directory `tools/study`, build `npm run build:vercel`, xem `vercel.json`): đặt env `STUDY_STORAGE=pg`, `STUDY_DATABASE_URL` (transaction pooler, cổng 6543), `DEEPSEEK_API_KEY`, `STUDY_PASSWORD`, `STUDY_SESSION_SECRET`. Có `STUDY_PASSWORD` thì mọi `/api/*` cần đăng nhập (cookie HttpOnly, hạn 30 ngày); bản Vercel từ chối chạy nếu thiếu biến này. Vercel chặn commit có email tác giả không thuộc tài khoản, hãy đặt `git config user.email` đúng email Vercel. Bản thuần local (không đặt mật khẩu) chỉ nhận host loopback.
+
+## Sao lưu file lên Supabase (tuỳ chọn, `study.files`)
 
 Notes và `data/` có thể sao lưu/khôi phục qua schema riêng `study` (bảng `study.files`, bật RLS, không cấp quyền cho `anon`/`authenticated`, chỉ kết nối Postgres trực tiếp mới chạm được). App vẫn chạy hoàn toàn bằng file local; cloud chỉ để backup và đổi máy.
 

@@ -18,7 +18,7 @@ Mỗi ngày: 2h tech + 1h tiếng Anh. Mọi thứ đều nằm trong repo này 
 | `templates/` | Mẫu daily, note, weekly review |
 | `docs/HOW-TO-LEARN.md` | Cách học tối ưu cho từng mảng, cách dùng AI |
 | `tools/study/` | App học `study` (web + CLI): thẻ ôn FSRS, phỏng vấn AI DeepSeek, theo dõi tiến độ. Chạy: `cd tools\study; npm run build; npm run serve` rồi mở http://localhost:4173 (xem README trong đó) |
-| `data/` | Trạng thái ôn tập do `study` tạo (`state.json`, `reviews.jsonl`, `quiz.jsonl`, `daily.json`), không commit (repo công khai); backup bằng `study cloud push` lên schema `study` trên Supabase |
+| `data/` | Trạng thái ôn tập do `study` tạo (`state.json`, `reviews.jsonl`, `quiz.jsonl`, `daily.json`), không commit (repo công khai); dữ liệu chính của web app nằm ở schema `study` trên Supabase (`study cloud migrate/export` để chuyển qua lại với file) |
 
 ## Cách học (làm theo thứ tự)
 

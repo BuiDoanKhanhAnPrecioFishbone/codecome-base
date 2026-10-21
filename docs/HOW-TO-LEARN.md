@@ -60,7 +60,7 @@ Kiểm chứng: chọn ngẫu nhiên 1 thẻ/tuần do AI tạo, đối chiếu 
 
 Chi tiết cài đặt và cách dùng: [tools/study/README.md](../tools/study/README.md).
 
-**Web app** (dùng hằng ngày): `cd tools\study; npm run build; npm run serve`, mở http://localhost:4173. Sáu màn: Hôm nay (kế hoạch lấy từ `ROADMAP.md`, mỗi slot có nút "Đọc bài" mở bài đọc ngay trong app), Ôn tập, Notes (viết note, AI đề xuất thẻ), Phỏng vấn AI, Tiến độ. Mọi thứ ghi ra file trong `notes/` và `data/`, không có tài khoản hay cloud.
+**Web app** (dùng hằng ngày): `cd tools\study; npm run build; npm run serve`, mở http://localhost:4173. Sáu màn: Hôm nay (kế hoạch lấy từ `ROADMAP.md`, mỗi slot có nút "Đọc bài" mở bài đọc ngay trong app), Ôn tập, Notes (viết note, AI đề xuất thẻ), Phỏng vấn AI, Tiến độ. Dữ liệu nằm ở Supabase (schema `study`) khi có `STUDY_DATABASE_URL`, nếu không thì ghi file trong `notes/` và `data/`. Bản deploy: https://amberjack-study.vercel.app (đăng nhập bằng `STUDY_PASSWORD` trong `.env`).
 
 **CLI** (cùng dữ liệu, tiện khi đang ở terminal):
 
@@ -73,5 +73,6 @@ Chi tiết cài đặt và cách dùng: [tools/study/README.md](../tools/study/R
 | `study quiz <note>` | AI phỏng vấn + chấm theo note |
 | `study stats` | Số thẻ đến hạn, tỉ lệ nhớ, chuỗi ngày, thẻ hay sai |
 | `study cloud push\|pull` | Sao lưu/khôi phục notes + `data/` qua Supabase (schema `study`) |
+| `study cloud migrate\|export` | File → bảng Supabase (nguồn chính của web app) / bảng → file (để CLI dùng) |
 
 Chi phí DeepSeek ([giá chính thức](https://api-docs.deepseek.com/quick_start/pricing/)): `deepseek-flash` khoảng $0.15 / 1M token input (cache miss, giờ thấp điểm; giờ cao điểm gấp đôi) và $0.60 / 1M token output. Mỗi lần `gen`/`quiz` chỉ dùng vài nghìn token, nên chi phí thường rất nhỏ. Không có API key thì phần ôn thẻ vẫn dùng đầy đủ, chỉ thiếu tính năng AI (đề xuất thẻ, phỏng vấn).
