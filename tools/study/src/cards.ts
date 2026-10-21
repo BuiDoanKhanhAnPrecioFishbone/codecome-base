@@ -97,12 +97,17 @@ export function listNoteFiles(notesDir: string): string[] {
     .sort();
 }
 
-export function scanNotes(notesDir: string): ParsedCard[] {
+/** Area is the first folder of a note path (`network/tcp.md` → `network`). */
+export function areaOfPath(rel: string): string {
+  const i = rel.indexOf('/');
+  return i > 0 ? rel.slice(0, i) : 'misc';
+}
+
+export function scanNoteTexts(notes: { path: string; content: string }[]): ParsedCard[] {
   const all: ParsedCard[] = [];
   const seen = new Set<string>();
-  for (const file of listNoteFiles(notesDir)) {
-    const rel = relative(notesDir, file).split(sep).join('/');
-    for (const c of parseCards(readFileSync(file, 'utf8'), rel, areaOf(notesDir, file))) {
+  for (const n of [...notes].sort((a, b) => a.path.localeCompare(b.path))) {
+    for (const c of parseCards(n.content, n.path, areaOfPath(n.path))) {
       if (!seen.has(c.id)) {
         seen.add(c.id);
         all.push(c);
@@ -112,17 +117,31 @@ export function scanNotes(notesDir: string): ParsedCard[] {
   return all;
 }
 
+export function scanNotes(notesDir: string): ParsedCard[] {
+  return scanNoteTexts(
+    listNoteFiles(notesDir).map((file) => ({
+      path: relative(notesDir, file).split(sep).join('/'),
+      content: readFileSync(file, 'utf8'),
+    })),
+  );
+}
+
 export function formatCard(c: { q: string; a: string }): string {
   const oneBlock = (s: string) => s.trim().replace(/\n{2,}/g, '\n');
   return `Q: ${oneBlock(c.q)}\nA: ${oneBlock(c.a)}\n`;
 }
 
-export function appendCards(file: string, cards: { q: string; a: string }[]): void {
-  if (cards.length === 0) return;
-  const current = readFileSync(file, 'utf8');
+/** Returns the text to append to a note so that it ends with the given cards. */
+export function cardsSuffix(current: string, cards: { q: string; a: string }[]): string {
+  if (cards.length === 0) return '';
   let prefix = current.endsWith('\n') ? '' : '\n';
   if (!/^##\s+Cards\s*$/m.test(current)) prefix += '\n## Cards\n';
-  appendFileSync(file, `${prefix}\n${cards.map(formatCard).join('\n')}`);
+  return `${prefix}\n${cards.map(formatCard).join('\n')}`;
+}
+
+export function appendCards(file: string, cards: { q: string; a: string }[]): void {
+  if (cards.length === 0) return;
+  appendFileSync(file, cardsSuffix(readFileSync(file, 'utf8'), cards));
 }
 
 export function slugify(title: string): string {
@@ -135,8 +154,11 @@ export function slugify(title: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
-export function createNoteFromTemplate(templateFile: string, target: string, title: string): void {
+export function noteFromTemplate(templateFile: string, title: string): string {
   const tpl = existsSync(templateFile) ? readFileSync(templateFile, 'utf8') : '# Chủ đề\n\n## Cards\n';
-  const withTitle = tpl.replace(/^# .*$/m, `# ${title}`);
-  writeFileSync(target, withTitle, { flag: 'wx' });
+  return tpl.replace(/^# .*$/m, `# ${title}`);
+}
+
+export function createNoteFromTemplate(templateFile: string, target: string, title: string): void {
+  writeFileSync(target, noteFromTemplate(templateFile, title), { flag: 'wx' });
 }

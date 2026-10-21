@@ -180,4 +180,4 @@ export async function connect(url: string): Promise<Remote & { sql: import('post
 }
 
 export const withSha = (a: Action) => ({ path: a.path, kind: a.kind, content: a.content, sha256: sha(a.content) });
-export const MIGRATION_FILE = new URL('../supabase/001_study_schema.sql', import.meta.url);
+export const MIGRATIONS_DIR = new URL('../supabase/', import.meta.url);

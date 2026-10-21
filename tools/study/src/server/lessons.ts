@@ -1,5 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import type { Storage } from '../storage/types.ts';
 import { HttpError } from './notes.ts';
 import type { Week } from './roadmap.ts';
 
@@ -23,8 +22,7 @@ export function parseLessonKey(week: unknown, strand: unknown): { week: number; 
   return { week: n, strand: strand as LessonStrand };
 }
 
-export const lessonPath = (dir: string, week: number, strand: LessonStrand) =>
-  join(dir, `w${String(week).padStart(2, '0')}-${strand}.md`);
+export const lessonKey = (week: number, strand: LessonStrand) => `w${String(week).padStart(2, '0')}-${strand}`;
 
 export function topicOf(week: Week, strand: LessonStrand): string {
   return { S: week.s, F: week.f, A: week.a, D: week.d }[strand];
@@ -36,14 +34,13 @@ export interface Lesson {
   updated: string;
 }
 
-export function readLesson(file: string): Lesson | null {
-  if (!existsSync(file)) return null;
-  const content = readFileSync(file, 'utf8');
-  return { content, source: content.trimStart().startsWith(AI_MARKER) ? 'ai' : 'curated', updated: statSync(file).mtime.toISOString() };
+export async function readLesson(storage: Storage, key: string): Promise<Lesson | null> {
+  const rec = await storage.getLesson(key);
+  if (!rec) return null;
+  return { content: rec.content, source: rec.content.trimStart().startsWith(AI_MARKER) ? 'ai' : 'curated', updated: rec.updated };
 }
 
-export function writeLesson(dir: string, file: string, markdown: string): void {
+export async function writeLesson(storage: Storage, key: string, markdown: string): Promise<void> {
   if (Buffer.byteLength(markdown) > MAX_LESSON_BYTES) throw new HttpError(413, 'Bài học quá lớn');
-  mkdirSync(dir, { recursive: true });
-  writeFileSync(file, markdown.endsWith('\n') ? markdown : `${markdown}\n`);
+  await storage.putLesson(key, markdown.endsWith('\n') ? markdown : `${markdown}\n`);
 }

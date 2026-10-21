@@ -10,3 +10,8 @@ tools/study/web/dist/
 # design canvas: keep sources, ignore assembled page
 /design/mockups/*.html
 !/design/mockups/*.dc.html
+
+# Vercel build output
+/tools/study/dist-api/
+/tools/study/bundle/
+.vercel

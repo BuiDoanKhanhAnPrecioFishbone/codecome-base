@@ -2,6 +2,7 @@ import { existsSync, readFileSync, statSync } from 'node:fs';
 import { createServer as createHttpServer, type IncomingMessage, type Server, type ServerResponse } from 'node:http';
 import { extname, join, resolve, sep } from 'node:path';
 import { createApp, type Ctx } from './app.ts';
+import { clearCookie, createAuth, sessionCookie } from './auth.ts';
 
 const MAX_BODY = 1_000_000;
 
@@ -42,9 +43,9 @@ export function originOk(origin: string | undefined, host: string | undefined): 
   }
 }
 
-function send(res: ServerResponse, status: number, body: unknown): void {
+function send(res: ServerResponse, status: number, body: unknown, extra: Record<string, string> = {}): void {
   const data = JSON.stringify(body);
-  res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...SECURITY_HEADERS });
+  res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...SECURITY_HEADERS, ...extra });
   res.end(data);
 }
 
@@ -94,29 +95,60 @@ function serveStatic(webDir: string, pathname: string, res: ServerResponse): voi
   res.end(readFileSync(file));
 }
 
-export function createStudyServer(ctx: Ctx, webDir: string): Server {
+export interface HandlerOptions {
+  /** Folder with the built frontend. Omit when a CDN serves it (Vercel). */
+  webDir?: string;
+  /** Refuse every API call until a password is configured (public deployments). */
+  requirePassword?: boolean;
+}
+
+/** Plain Node request handler, so it runs under `http.createServer` locally and as a Vercel function. */
+export function createRequestHandler(ctx: Ctx, opts: HandlerOptions = {}) {
   const app = createApp(ctx);
-  return createHttpServer(async (req, res) => {
+  const auth = createAuth(ctx.env ?? process.env);
+  const now = () => ctx.now();
+
+  return async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
     try {
-      if (!hostOk(req.headers.host)) return send(res, 403, { error: 'Host không được phép' });
+      // With a password the cookie is the gate; without one, only loopback hosts are allowed.
+      if (!auth.enabled && !hostOk(req.headers.host)) return send(res, 403, { error: 'Host không được phép' });
       const url = new URL(req.url ?? '/', 'http://localhost');
       const method = req.method ?? 'GET';
+      const secure = (req.headers['x-forwarded-proto'] ?? '').toString().startsWith('https');
       if (url.pathname.startsWith('/api/')) {
+        if (opts.requirePassword && !auth.enabled) return send(res, 503, { error: 'Chưa đặt STUDY_PASSWORD trên server' });
         if (!originOk(req.headers.origin, req.headers.host)) return send(res, 403, { error: 'Origin không được phép' });
+        const authed = !auth.enabled || auth.verify(req.headers.cookie, now());
+        if (url.pathname === '/api/session' && method === 'GET') return send(res, 200, { required: auth.enabled, authed });
         let body: Record<string, unknown> = {};
         if (method !== 'GET') {
           if (!/^application\/json\b/i.test(req.headers['content-type'] ?? '')) return send(res, 415, { error: 'Cần Content-Type: application/json' });
           body = await readJson(req);
         }
+        if (url.pathname === '/api/login' && method === 'POST') {
+          if (!auth.check(body.password)) {
+            await new Promise((r) => setTimeout(r, 700));
+            return send(res, 401, { error: 'Sai mật khẩu' });
+          }
+          const { token, maxAge } = auth.issue(now());
+          return send(res, 200, { ok: true }, { 'set-cookie': sessionCookie(token, maxAge, secure) });
+        }
+        if (url.pathname === '/api/logout' && method === 'POST') return send(res, 200, { ok: true }, { 'set-cookie': clearCookie(secure) });
+        if (!authed) return send(res, 401, { error: 'Cần đăng nhập' });
         const reply = await app(method, url.pathname, url.searchParams, body);
         return send(res, reply.status, reply.body);
       }
+      if (!opts.webDir) return send(res, 404, { error: 'Không tìm thấy' });
       if (method !== 'GET' && method !== 'HEAD') return send(res, 405, { error: 'Method không hỗ trợ' });
-      serveStatic(webDir, url.pathname, res);
+      serveStatic(opts.webDir, url.pathname, res);
     } catch (e) {
       const status = (e as { status?: number }).status ?? 500;
       if (status === 500) console.error(e);
       send(res, status, { error: status === 500 ? 'Lỗi server' : (e as Error).message });
     }
-  });
+  };
+}
+
+export function createStudyServer(ctx: Ctx, webDir: string): Server {
+  return createHttpServer(createRequestHandler(ctx, { webDir }));
 }

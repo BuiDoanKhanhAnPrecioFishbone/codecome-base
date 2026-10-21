@@ -32,6 +32,15 @@ export function pathsFor(root: string): Paths {
   };
 }
 
+/** Read-only files (roadmap, note template) copied next to the serverless function by `build:vercel`. */
+export function bundledPaths(bundleDir: string): Paths {
+  return {
+    ...pathsFor(bundleDir),
+    templateFile: join(bundleDir, 'note.md'),
+    roadmapFile: join(bundleDir, 'ROADMAP.md'),
+  };
+}
+
 export const ROOT = fileURLToPath(new URL('../../../', import.meta.url));
 const P = pathsFor(ROOT);
 export const NOTES_DIR = P.notesDir;

@@ -1,10 +1,13 @@
-import { existsSync, mkdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { basename, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createInterface } from 'node:readline';
 import { appendCards, listNoteFiles, parseCards, areaOf, scanNotes, createNoteFromTemplate, slugify } from './cards.ts';
 import { chatJson, loadConfig, type LlmConfig, type Usage } from './llm.ts';
 import { ENV_FILE, NOTES_DIR, QUIZ_FILE, REVIEWS_FILE, ROOT, STATE_FILE, TEMPLATE_FILE, pathsFor } from './paths.ts';
-import { MIGRATION_FILE, collectLocal, connect, databaseUrl, planPull, planPush, withSha, writeLocal } from './cloud.ts';
+import { MIGRATIONS_DIR, collectLocal, connect, databaseUrl, planPull, planPush, withSha, writeLocal } from './cloud.ts';
+import { fileStorage } from './storage/file.ts';
+import { copyAll, pgStorage } from './storage/pg.ts';
 import {
   GEN_SYSTEM, GRADE_SYSTEM, QUIZ_SYSTEM, genUser, gradeUser, parseGen, parseGrade, parseQuiz, quizUser,
 } from './prompts.ts';
@@ -26,7 +29,9 @@ const HELP = `study — ôn tập theo FSRS + DeepSeek
   quiz [note|area] [--n 3]   AI phỏng vấn, chấm câu trả lời của bạn
   stats                      tổng quan tiến độ
   cloud init|status|push|pull [--force]
-                             sao lưu/khôi phục notes + data lên Supabase (schema study)`;
+                             sao lưu/khôi phục notes + data lên Supabase (schema study)
+  cloud migrate [--force]    chuyển notes/lessons/data từ file lên bảng Supabase (nguồn chính của web app)
+  cloud export               kéo dữ liệu từ bảng Supabase về file trên máy (để CLI dùng)`;
 
 function parseArgs(argv: string[]) {
   const pos: string[] = [];
@@ -307,18 +312,40 @@ function cmdStats(): void {
 
 async function cmdCloud(pos: string[], flags: Record<string, string>): Promise<void> {
   const sub = pos[0];
-  if (!['init', 'status', 'push', 'pull'].includes(sub ?? '')) {
-    throw new Error('Dùng: cloud init | status | push [--force] | pull [--force]');
+  if (!['init', 'status', 'push', 'pull', 'migrate', 'export'].includes(sub ?? '')) {
+    throw new Error('Dùng: cloud init | status | push [--force] | pull [--force] | migrate [--force] | export');
   }
   const url = databaseUrl(ENV_FILE);
   if (!url) throw new Error('Chưa có STUDY_DATABASE_URL trong .env ở thư mục gốc repo (chuỗi kết nối Postgres của Supabase).');
   const force = 'force' in flags;
   const paths = pathsFor(ROOT);
+  if (sub === 'migrate' || sub === 'export') {
+    const local = fileStorage(paths);
+    const pg = await pgStorage(url);
+    try {
+      if (sub === 'migrate') {
+        const existing = (await pg.listNotes()).length + (await pg.listLessons()).length;
+        if (existing > 0 && !force) {
+          throw new Error(`Bảng Supabase đã có dữ liệu (${existing} note/bài học). Dùng --force để ghi đè state/daily/notes từ file.`);
+        }
+      }
+      const [from, to] = sub === 'migrate' ? [local, pg] : [pg, local];
+      const counts = await copyAll(from, to);
+      console.log(`${sub === 'migrate' ? 'Đã chuyển lên Supabase' : 'Đã xuất về máy'}: ${Object.entries(counts).map(([k, v]) => `${v} ${k}`).join(', ')}.`);
+    } finally {
+      await pg.close();
+    }
+    return;
+  }
   const remote = await connect(url);
   try {
     if (sub === 'init') {
-      await remote.sql.unsafe(readFileSync(MIGRATION_FILE, 'utf8'));
-      console.log('Đã tạo (hoặc xác nhận có sẵn) schema `study` với bảng `study.files`.');
+      const dir = fileURLToPath(MIGRATIONS_DIR);
+      for (const f of readdirSync(dir).filter((n) => n.endsWith('.sql')).sort()) {
+        await remote.sql.unsafe(readFileSync(join(dir, f), 'utf8'));
+        console.log(`  ✓ ${f}`);
+      }
+      console.log('Schema `study` đã sẵn sàng (files, notes, lessons, kv, reviews, quiz).');
       return;
     }
     const [local, theirs] = [collectLocal(paths), await remote.list()];

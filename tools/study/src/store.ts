@@ -45,11 +45,15 @@ function reviveFsrs(raw: Card): Card {
   };
 }
 
-export function loadState(file: string): StudyState {
-  if (!existsSync(file)) return emptyState();
-  const parsed = JSON.parse(readFileSync(file, 'utf8')) as StudyState;
+/** Restores Date fields on a state parsed from JSON (file or database). */
+export function reviveState(parsed: StudyState): StudyState {
   for (const c of Object.values(parsed.cards)) c.fsrs = reviveFsrs(c.fsrs);
   return parsed;
+}
+
+export function loadState(file: string): StudyState {
+  if (!existsSync(file)) return emptyState();
+  return reviveState(JSON.parse(readFileSync(file, 'utf8')) as StudyState);
 }
 
 export function saveState(file: string, state: StudyState): void {

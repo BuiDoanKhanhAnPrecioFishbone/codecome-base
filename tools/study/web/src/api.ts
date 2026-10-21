@@ -15,9 +15,10 @@ export async function api<T>(method: 'GET' | 'POST' | 'PUT', url: string, body?:
       body: body === undefined ? undefined : JSON.stringify(body),
     });
   } catch {
-    throw new ApiError(0, 'Không kết nối được server. Hãy chạy lại `npm run serve` trong tools/study.');
+    throw new ApiError(0, 'Không kết nối được server. Kiểm tra mạng, hoặc chạy lại `npm run serve` trong tools/study nếu đang dùng bản local.');
   }
   const data = (await res.json().catch(() => ({}))) as { error?: string };
+  if (res.status === 401 && url !== '/api/login') window.dispatchEvent(new Event('study:unauthorized'));
   if (!res.ok) throw new ApiError(res.status, data.error ?? `Lỗi ${res.status}`);
   return data as T;
 }

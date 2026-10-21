@@ -1,6 +1,6 @@
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
-import { dirname, relative, resolve, sep } from 'node:path';
-import { areaOf, createNoteFromTemplate, listNoteFiles, parseCards, slugify } from '../cards.ts';
+import { resolve, sep } from 'node:path';
+import { areaOfPath, noteFromTemplate, parseCards, slugify } from '../cards.ts';
+import type { NoteRecord, Storage } from '../storage/types.ts';
 import type { StudyState } from '../store.ts';
 import { isDue } from '../queue.ts';
 
@@ -24,12 +24,18 @@ export interface NoteMeta {
   due: number;
 }
 
-/** Accepts only `.md` files under notesDir, given as a relative path with forward slashes. */
-export function resolveNotePath(notesDir: string, rel: unknown): string {
+/** Accepts only `.md` paths made of safe segments, given as a relative path with forward slashes. */
+export function checkNotePath(rel: unknown): string {
   if (typeof rel !== 'string' || rel === '' || rel.length > 200) throw new HttpError(400, 'Đường dẫn note không hợp lệ');
   const parts = rel.split('/');
   const bad = parts.some((p) => p === '' || p === '.' || p === '..' || !/^[\w.-]+$/.test(p));
   if (bad || !rel.endsWith('.md')) throw new HttpError(400, 'Đường dẫn note không hợp lệ');
+  return rel;
+}
+
+/** Same check, resolved under a notes folder on disk. */
+export function resolveNotePath(notesDir: string, rel: unknown): string {
+  const parts = checkNotePath(rel).split('/');
   const base = resolve(notesDir);
   const full = resolve(base, ...parts);
   if (!full.startsWith(base + sep)) throw new HttpError(400, 'Đường dẫn note không hợp lệ');
@@ -67,7 +73,7 @@ export function summaryOf(markdown: string): string {
   return '';
 }
 
-export function listNotes(notesDir: string, state: StudyState, now: Date): NoteMeta[] {
+export function listNotes(notes: NoteRecord[], state: StudyState, now: Date): NoteMeta[] {
   const byFile = new Map<string, { due: number }>();
   for (const c of Object.values(state.cards)) {
     if (c.orphan) continue;
@@ -75,54 +81,40 @@ export function listNotes(notesDir: string, state: StudyState, now: Date): NoteM
     if (isDue(c, now)) e.due++;
     byFile.set(c.file, e);
   }
-  return listNoteFiles(notesDir).map((file) => {
-    const rel = relative(notesDir, file).split(sep).join('/');
-    const text = readFileSync(file, 'utf8');
-    const area = areaOf(notesDir, file);
+  return notes.map((n) => {
+    const area = areaOfPath(n.path);
     return {
-      path: rel,
+      path: n.path,
       area,
-      title: titleOf(text, rel.replace(/\.md$/, '')),
-      summary: summaryOf(text),
-      updated: statSync(file).mtime.toISOString(),
-      cards: parseCards(text, rel, area).length,
-      due: byFile.get(rel)?.due ?? 0,
+      title: titleOf(n.content, n.path.replace(/\.md$/, '')),
+      summary: summaryOf(n.content),
+      updated: n.updated,
+      cards: parseCards(n.content, n.path, area).length,
+      due: byFile.get(n.path)?.due ?? 0,
     };
   });
 }
 
-export function readNote(notesDir: string, rel: string): { path: string; area: string; content: string; updated: string } {
-  const full = resolveNotePath(notesDir, rel);
-  if (!existsSync(full) || !statSync(full).isFile()) throw new HttpError(404, 'Không tìm thấy note');
-  return {
-    path: rel,
-    area: areaOf(notesDir, full),
-    content: readFileSync(full, 'utf8'),
-    updated: statSync(full).mtime.toISOString(),
-  };
+export async function readNote(storage: Storage, rel: unknown): Promise<{ path: string; area: string; content: string; updated: string }> {
+  const path = checkNotePath(rel);
+  const note = await storage.getNote(path);
+  if (!note) throw new HttpError(404, 'Không tìm thấy note');
+  return { path, area: areaOfPath(path), content: note.content, updated: note.updated };
 }
 
-export function writeNote(notesDir: string, rel: string, content: unknown): void {
+export async function writeNote(storage: Storage, rel: unknown, content: unknown): Promise<void> {
   if (typeof content !== 'string') throw new HttpError(400, 'Thiếu nội dung note');
   if (Buffer.byteLength(content) > MAX_NOTE_BYTES) throw new HttpError(413, 'Note quá lớn');
-  const full = resolveNotePath(notesDir, rel);
-  if (!existsSync(full)) throw new HttpError(404, 'Không tìm thấy note');
-  writeFileSync(full, content);
+  if (!(await storage.updateNote(checkNotePath(rel), content))) throw new HttpError(404, 'Không tìm thấy note');
 }
 
-export function createNote(notesDir: string, templateFile: string, area: unknown, title: unknown): string {
+export async function createNote(storage: Storage, templateFile: string, area: unknown, title: unknown): Promise<string> {
   if (typeof area !== 'string' || !/^[a-z0-9_-]+$/i.test(area)) throw new HttpError(400, 'Mảng không hợp lệ');
   if (typeof title !== 'string' || title.trim() === '' || title.length > 120) throw new HttpError(400, 'Tiêu đề không hợp lệ');
   const slug = slugify(title);
   if (!slug) throw new HttpError(400, 'Tiêu đề không hợp lệ');
-  const rel = `${area}/${slug}.md`;
-  const full = resolveNotePath(notesDir, rel);
-  mkdirSync(dirname(full), { recursive: true });
-  try {
-    createNoteFromTemplate(templateFile, full, title.trim());
-  } catch (e) {
-    if ((e as NodeJS.ErrnoException).code === 'EEXIST') throw new HttpError(409, 'Note đã tồn tại');
-    throw e;
-  }
+  const rel = checkNotePath(`${area}/${slug}.md`);
+  if (!(await storage.createNote(rel, noteFromTemplate(templateFile, title.trim())))) throw new HttpError(409, 'Note đã tồn tại');
   return rel;
 }
+
