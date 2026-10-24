@@ -12,7 +12,7 @@ function writeJson(file: string, value: unknown): void {
   renameSync(tmp, file);
 }
 
-export const LESSON_KEY = /^w\d{2}-[SFAD]$/;
+export const LESSON_KEY = /^w\d{2}-[SFADO]$/;
 
 /** The original layout: notes/, lessons/ and data/ under the repo root. */
 export function fileStorage(paths: Paths): Storage {
@@ -70,7 +70,7 @@ export function fileStorage(paths: Paths): Storage {
       if (!existsSync(paths.lessonsDir)) return [];
       const out: (LessonRecord & { key: string })[] = [];
       for (let w = 1; w <= 99; w++) {
-        for (const s of ['S', 'F', 'A', 'D']) {
+        for (const s of ['S', 'F', 'A', 'D', 'O']) {
           const key = `w${String(w).padStart(2, '0')}-${s}`;
           const file = join(paths.lessonsDir, `${key}.md`);
           if (existsSync(file)) out.push({ key, content: readFileSync(file, 'utf8'), updated: statSync(file).mtime.toISOString() });

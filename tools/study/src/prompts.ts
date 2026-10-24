@@ -88,7 +88,9 @@ Rules:
 - Use tables and code blocks where they clarify. No raw HTML other than that first comment.`;
 
 export function lessonUser(topic: string, strandLabel: string, week: number): string {
-  return `Strand: ${strandLabel}. Roadmap week ${week}.\nTopic: ${topic}`;
+  const base = `Strand: ${strandLabel}. Roadmap week ${week}.\nTopic: ${topic}`;
+  if (!/optimizely/i.test(strandLabel)) return base;
+  return `${base}\nThis lesson prepares the learner for the Optimizely CMS PaaS Core Developer exam (30 multiple-choice questions plus one scenario; domains: developer experience and extensibility 45%, content delivery and APIs 20%, user management security 15%, cloud infrastructure and deployment 10%, access control 10%). Use CMS 12 on .NET: code samples in C#. In "## Câu hỏi phỏng vấn thường gặp" write exam-style multiple-choice questions (A-D) with the answer and a one-line reason, and add a "## Bẫy thường gặp trong đề" section of common wrong answers. Do not claim exact exam questions; mark anything version-specific you are unsure about.`;
 }
 
 export function parseLesson(raw: unknown): string {

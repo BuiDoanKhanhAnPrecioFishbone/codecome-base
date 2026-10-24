@@ -1,12 +1,12 @@
 # Amberjack – kho học tập cá nhân
 
-Mỗi ngày: 2h tech + 1h tiếng Anh. Mọi thứ đều nằm trong repo này để theo dõi và ôn lại.
+Mỗi ngày: 2h tech + 1h Optimizely (luyện chứng chỉ, đến 30/12/2026) + 1h tiếng Anh. Mọi thứ đều nằm trong repo này để theo dõi và ôn lại.
 
 ## Cấu trúc
 
 | Thư mục | Dùng để |
 |---|---|
-| `ROADMAP.md` | Kế hoạch 23 tuần (19/10/2026–31/3/2027), tick checkpoint |
+| `ROADMAP.md` | Kế hoạch 23 tuần (26/10/2026–4/4/2027), gồm lộ trình chứng chỉ Optimizely, tick checkpoint |
 | `daily/` | Log mỗi ngày (`YYYY-MM-DD.md`, copy từ `templates/daily.md`) |
 | `notes/<chủ đề>/` | Note dài hạn, viết bằng lời của mình (ưu tiên tiếng Anh) |
 | `lessons/` | Bài đọc theo tuần và mảng (`w01-F.md` = tuần 1, Frontend), đọc ngay trong app qua nút "Đọc bài". Bài tuần 1 viết tay, các bài khác DeepSeek tạo khi bạn bấm "Tạo bài bằng AI" |
@@ -22,7 +22,7 @@ Mỗi ngày: 2h tech + 1h tiếng Anh. Mọi thứ đều nằm trong repo này 
 
 ## Cách học (làm theo thứ tự)
 
-1. **Học xen kẽ:** mỗi tuần chạy đủ 4 mảng (hạ tầng/system design/kiến trúc, frontend sâu, AI, DSA). Xem lịch ngày trong `ROADMAP.md`.
+1. **Học xen kẽ:** mỗi tuần chạy đủ 4 mảng (hạ tầng/system design/kiến trúc, frontend sâu, AI, DSA), cộng mảng O (Optimizely) đến hết tuần 10. Xem lịch ngày trong `ROADMAP.md`.
 2. **Học chủ động:** đọc 45', rồi gập tài liệu lại và tự giải thích ra giấy.
 3. **Làm ngay:** mỗi chủ đề có 1 lab chạy được. Không có lab thì chưa tính là học xong.
 4. **Viết note bằng lời mình:** 1 trang, có sơ đồ, có phần "khi nào dùng / khi nào không".

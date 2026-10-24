@@ -285,7 +285,7 @@ function AreaFilter({ options, value, onChange }: { options: { area: string; cou
 
 function NewNote({ areas, onClose }: { areas: string[]; onClose: () => void }) {
   const navigate = useNavigate();
-  const known = [...new Set([...areas, 'network', 'devops', 'database', 'system-design', 'ai', 'dsa', 'frontend', 'architecture', 'interview'])];
+  const known = [...new Set([...areas, 'network', 'devops', 'database', 'system-design', 'ai', 'dsa', 'frontend', 'architecture', 'interview', 'optimizely'])];
   const [area, setArea] = useState(known[0]);
   const [title, setTitle] = useState('');
   const [error, setError] = useState('');

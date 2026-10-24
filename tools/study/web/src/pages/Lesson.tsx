@@ -15,9 +15,9 @@ interface LessonData {
   updated?: string;
 }
 
-const AREAS = ['network', 'devops', 'architecture', 'database', 'frontend', 'ai', 'dsa', 'interview'];
-const DEFAULT_AREA: Record<string, string> = { S: 'network', F: 'frontend', A: 'ai', D: 'dsa' };
-const LABEL: Record<string, string> = { S: 'hệ thống', F: 'frontend', A: 'ai', D: 'dsa' };
+const AREAS = ['network', 'devops', 'architecture', 'database', 'frontend', 'ai', 'dsa', 'optimizely', 'interview'];
+const DEFAULT_AREA: Record<string, string> = { S: 'network', F: 'frontend', A: 'ai', D: 'dsa', O: 'optimizely' };
+const LABEL: Record<string, string> = { S: 'hệ thống', F: 'frontend', A: 'ai', D: 'dsa', O: 'optimizely' };
 
 export default function LessonPage() {
   const { week = '', strand = '' } = useParams();

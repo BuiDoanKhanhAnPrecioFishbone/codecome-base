@@ -1,11 +1,13 @@
 import { existsSync, readFileSync } from 'node:fs';
 
-export type Strand = 'S' | 'F' | 'A' | 'D' | 'T7' | 'EN' | 'REV';
+export type Strand = 'S' | 'F' | 'A' | 'D' | 'O' | 'T7' | 'EN' | 'REV';
 
 export interface Week {
   n: number;
   start: string;
   end: string;
+  /** Optimizely certification track; empty once the exam window is over. */
+  o: string;
   s: string;
   f: string;
   a: string;
@@ -25,7 +27,7 @@ export interface PlanItem {
 }
 
 /** Roadmap week 1 starts on this Monday (local time). */
-export const ROADMAP_START = '2026-10-19';
+export const ROADMAP_START = '2026-10-26';
 
 export function dayKey(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -44,19 +46,20 @@ export function addDays(k: string, n: number): string {
 
 const clean = (s: string) => s.replace(/\*\*/g, '').replace(/\*/g, '').trim();
 
-/** Reads the weekly table (`| n | dates | S | F | A | D | T7 |`) from ROADMAP.md. */
+/** Reads the weekly table (`| n | dates | O | S | F | A | D | T7 |`) from ROADMAP.md. */
 export function parseRoadmap(markdown: string, start: string = ROADMAP_START): Week[] {
   const weeks: Week[] = [];
   for (const line of markdown.split(/\r?\n/)) {
     if (!line.startsWith('|')) continue;
     const cells = line.split('|').slice(1, -1).map((c) => c.trim());
-    if (cells.length !== 7 || !/^\d+$/.test(cells[0])) continue;
+    if (cells.length !== 8 || !/^\d+$/.test(cells[0])) continue;
     const n = Number(cells[0]);
-    const [, , s, f, a, d, t7] = cells;
+    const [, , o, s, f, a, d, t7] = cells;
     weeks.push({
       n,
       start: addDays(start, (n - 1) * 7),
       end: addDays(start, (n - 1) * 7 + 6),
+      o: /^[—–-]*$/.test(o) ? '' : clean(o),
       s: clean(s),
       f: clean(f),
       a: clean(a),
@@ -86,8 +89,24 @@ const ENGLISH: PlanItem[] = [
 
 const review = (minutes: number, title: string): PlanItem => ({ slot: 'rev', strand: 'REV', minutes, title });
 
-/** Daily schedule from ROADMAP.md: Mon D+S, Tue F, Wed D+S, Thu A, Fri D+F, Sat project/lab, Sun review. */
+/** Daily schedule from ROADMAP.md: Mon D+S, Tue F, Wed D+S, Thu A, Fri D+F, Sat project/lab, Sun review; plus the Optimizely hour while the cert track is active. */
 export function planFor(week: Week | null, key: string): PlanItem[] {
+  const items = coreDay(week, key);
+  if (!week?.o) return items;
+  const sunday = parseDayKey(key).getDay() === 0;
+  const o: PlanItem = {
+    slot: 'o',
+    strand: 'O',
+    minutes: sunday ? 30 : 60,
+    title: sunday ? `Optimizely: ôn lại + quiz tuần (${week.o})` : `Optimizely: ${week.o}`,
+    detail: 'Lab trên Alloy/CMS 12 + ghi note vào notes/optimizely/',
+  };
+  const at = items.findIndex((i) => i.strand === 'EN');
+  items.splice(at === -1 ? items.length : at, 0, o);
+  return items;
+}
+
+function coreDay(week: Week | null, key: string): PlanItem[] {
   const dow = parseDayKey(key).getDay();
   const w = week ?? { s: '', f: '', a: '', d: '', t7: '' };
   switch (dow) {

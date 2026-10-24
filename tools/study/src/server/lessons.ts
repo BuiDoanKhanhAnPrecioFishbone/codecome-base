@@ -2,7 +2,7 @@ import type { Storage } from '../storage/types.ts';
 import { HttpError } from './notes.ts';
 import type { Week } from './roadmap.ts';
 
-export const LESSON_STRANDS = ['S', 'F', 'A', 'D'] as const;
+export const LESSON_STRANDS = ['S', 'F', 'A', 'D', 'O'] as const;
 export type LessonStrand = (typeof LESSON_STRANDS)[number];
 
 export const STRAND_LABEL: Record<LessonStrand, string> = {
@@ -10,6 +10,7 @@ export const STRAND_LABEL: Record<LessonStrand, string> = {
   F: 'Frontend',
   A: 'AI engineering',
   D: 'Data structures & algorithms',
+  O: 'Optimizely CMS PaaS (.NET) developer certification',
 };
 
 export const AI_MARKER = '<!-- ai-generated -->';
@@ -25,7 +26,7 @@ export function parseLessonKey(week: unknown, strand: unknown): { week: number; 
 export const lessonKey = (week: number, strand: LessonStrand) => `w${String(week).padStart(2, '0')}-${strand}`;
 
 export function topicOf(week: Week, strand: LessonStrand): string {
-  return { S: week.s, F: week.f, A: week.a, D: week.d }[strand];
+  return { S: week.s, F: week.f, A: week.a, D: week.d, O: week.o }[strand];
 }
 
 export interface Lesson {

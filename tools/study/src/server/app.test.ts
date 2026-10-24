@@ -67,7 +67,7 @@ before(async () => {
   copyFileSync(`${ROOT}ROADMAP.md`, paths.roadmapFile);
   copyFileSync(`${ROOT}templates/note.md`, paths.templateFile);
   writeFileSync(join(paths.notesDir, 'network', 'tcp-vs-udp.md'), NOTE);
-  const fixed = new Date(2026, 9, 20, 10, 0, 0);
+  const fixed = new Date(2026, 9, 27, 10, 0, 0);
   server = createStudyServer(
     { paths, now: () => fixed, env: new Proxy({}, { get: (_t, k) => (hasKey && k === 'DEEPSEEK_API_KEY' ? 'test-key' : undefined) }) as NodeJS.ProcessEnv, fetch: fakeFetch() },
     join(dir, 'web'),
@@ -114,7 +114,7 @@ test('today: week 1 plan, due count and phase', async () => {
   assert.equal(status, 200);
   assert.equal(json.phase, 'active');
   assert.equal(json.week.n, 1);
-  assert.equal(json.date, '2026-10-20');
+  assert.equal(json.date, '2026-10-27');
   assert.equal(json.queueCount, 2);
   assert.equal(json.plan[0].slot, 'rev');
   assert.equal(json.totalWeeks, 23);
@@ -122,25 +122,25 @@ test('today: week 1 plan, due count and phase', async () => {
 
 test('today: missed study items carry over until ticked', async () => {
   let t = await api('GET', '/api/today');
-  const mon = t.json.backlog.filter((b: any) => b.date === '2026-10-19');
+  const mon = t.json.backlog.filter((b: any) => b.date === '2026-10-26');
   assert.deepEqual(mon.map((b: any) => b.slot), ['d', 's']);
   assert.equal(mon[0].week, 1);
   assert.ok(t.json.backlog.every((b: any) => b.strand !== 'REV' && b.strand !== 'EN'));
-  await api('POST', '/api/daily', { date: '2026-10-19', slot: 'd', done: true });
+  await api('POST', '/api/daily', { date: '2026-10-26', slot: 'd', done: true });
   t = await api('GET', '/api/today');
   assert.deepEqual(t.json.backlog.map((b: any) => b.slot), ['s']);
-  await api('POST', '/api/daily', { date: '2026-10-19', slot: 'd', done: false });
+  await api('POST', '/api/daily', { date: '2026-10-26', slot: 'd', done: false });
 });
 
 test('daily ticks persist and validate', async () => {
-  let r = await api('POST', '/api/daily', { date: '2026-10-20', slot: 'f1', done: true });
+  let r = await api('POST', '/api/daily', { date: '2026-10-27', slot: 'f1', done: true });
   assert.deepEqual(r.json.done, ['f1']);
-  assert.equal((await api('POST', '/api/daily', { date: '2026-10-20', slot: 'zzz', done: true })).status, 400);
+  assert.equal((await api('POST', '/api/daily', { date: '2026-10-27', slot: 'zzz', done: true })).status, 400);
   assert.equal((await api('POST', '/api/daily', { date: '2026-13-40', slot: 'f1', done: true })).status, 400);
   const today = await api('GET', '/api/today');
   assert.equal(today.json.plan.find((p: any) => p.slot === 'f1').done, true);
   assert.equal(today.json.weekMinutes.done, 45);
-  r = await api('POST', '/api/daily', { date: '2026-10-20', slot: 'f1', done: false });
+  r = await api('POST', '/api/daily', { date: '2026-10-27', slot: 'f1', done: false });
   assert.deepEqual(r.json.done, []);
 });
 
@@ -218,7 +218,7 @@ test('progress aggregates weeks, areas, heatmap and quiz', async () => {
   assert.equal(json.weeks.length, 23);
   assert.equal(json.currentWeek, 1);
   assert.equal(json.heatmap.length, 84);
-  assert.equal(json.heatmap.at(-1).day, '2026-10-20');
+  assert.equal(json.heatmap.at(-1).day, '2026-10-27');
   assert.equal(json.heatmap.at(-1).count, 1);
   assert.equal(json.quiz.count30, 1);
   assert.equal(json.quiz.avg30, 2);

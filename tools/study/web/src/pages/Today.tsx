@@ -11,6 +11,7 @@ const STRAND: Record<Strand, { label: string; area: string }> = {
   F: { label: 'frontend', area: 'frontend' },
   A: { label: 'ai', area: 'ai' },
   D: { label: 'dsa', area: 'dsa' },
+  O: { label: 'optimizely', area: 'optimizely' },
   T7: { label: 'dự án', area: 'system-design' },
   EN: { label: 'english', area: 'english' },
 };
@@ -147,7 +148,7 @@ export default function TodayPage() {
                     <span className={it.done ? 'plan-title is-done' : 'plan-title'}>
                       {it.title}
                       {it.detail && <span className="plan-detail">{it.detail}</span>}
-                      {t.week && ['S', 'F', 'A', 'D'].includes(it.strand) && (
+                      {t.week && ['S', 'F', 'A', 'D', 'O'].includes(it.strand) && (
                         <Link className="plan-read" to={`/learn/${t.week.n}/${it.strand}?slot=${it.slot}&date=${t.date}`}>
                           Đọc bài →
                         </Link>
@@ -180,7 +181,7 @@ export default function TodayPage() {
                           <span className="plan-detail">
                             {weekdayLong(it.date)} {fmtDay(it.date)} · bỏ lỡ
                           </span>
-                          {['S', 'F', 'A', 'D'].includes(it.strand) && (
+                          {['S', 'F', 'A', 'D', 'O'].includes(it.strand) && (
                             <Link className="plan-read" to={`/learn/${it.week}/${it.strand}?slot=${it.slot}&date=${it.date}`}>
                               Đọc bài →
                             </Link>
@@ -204,6 +205,7 @@ export default function TodayPage() {
               <div className="list-card pad">
                 {(
                   [
+                    ...(week.o ? ([['O', week.o]] as const) : []),
                     ['S', week.s],
                     ['F', week.f],
                     ['A', week.a],

@@ -1,0 +1,3 @@
+-- Cho phép bài học của mảng O (Optimizely): w01-O, w02-O, ...
+alter table study.lessons drop constraint if exists lessons_key_check;
+alter table study.lessons add constraint lessons_key_check check (key ~ '^w[0-9]{2}-[SFADO]$');

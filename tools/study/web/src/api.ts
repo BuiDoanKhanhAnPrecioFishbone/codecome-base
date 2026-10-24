@@ -31,6 +31,7 @@ export interface Week {
   n: number;
   start: string;
   end: string;
+  o: string;
   s: string;
   f: string;
   a: string;
@@ -41,7 +42,7 @@ export interface Week {
   light: boolean;
 }
 
-export type Strand = 'S' | 'F' | 'A' | 'D' | 'T7' | 'EN' | 'REV';
+export type Strand = 'S' | 'F' | 'A' | 'D' | 'O' | 'T7' | 'EN' | 'REV';
 
 export interface PlanItem {
   slot: string;

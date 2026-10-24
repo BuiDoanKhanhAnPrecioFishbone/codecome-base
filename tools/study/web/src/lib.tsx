@@ -36,6 +36,7 @@ export const AREA_TINT: Record<string, string> = {
   'system-design': '#CECDF2',
   ai: '#F8D3E0',
   dsa: '#FBEFB8',
+  optimizely: '#D9E3FF',
   frontend: '#D4F0EA',
   architecture: '#FADBD0',
   interview: '#E3E5EE',
