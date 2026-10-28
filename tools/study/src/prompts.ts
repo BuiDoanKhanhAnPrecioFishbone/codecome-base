@@ -1,3 +1,6 @@
+import type { LessonStrand } from './server/lessons.ts';
+import { sourcesPrompt } from './sources.ts';
+
 export interface CardProposal {
   q: string;
   a: string;
@@ -79,15 +82,22 @@ Structure (use these ## headings, in this order):
 3. "## Câu hỏi phỏng vấn thường gặp": 6 to 8 numbered questions with a one-line hint each.
 4. "## Tự kiểm tra": 3 questions the learner answers out loud with the page closed.
 5. "## Lab (75 phút)": 3 to 5 concrete hands-on steps that need only free tools.
-6. "## Tài liệu miễn phí": 3 to 6 well-known free resources. Give the name and the site only (for example "MDN Web Docs"). Never write a URL you are not certain exists; prefer no URL.
+6. "## Nguồn gốc để xác thực": 4 to 8 official or primary sources (docs, specs, exam blueprint) as markdown links [Name](https://...), each with a few words on what to verify there.
 Rules:
+- Cite sources inline: after each key factual claim (limits, defaults, API names, exam rules, version-specific behaviour) add a markdown link [Name](url) to the page that backs it. Use only markdown links, never bare URLs.
+- Use only links from the provided verified source list, or deeper pages on the same hosts when you are certain the exact URL exists. Never invent a URL; every link is machine-checked afterwards and broken ones are deleted. If no source backs a claim, mark the claim as unverified.
 - Start with a single "# " title line. Start the markdown with the line <!-- ai-generated -->.
 - Be accurate. If something is version-specific or you are unsure, say so instead of guessing.
 - Teach the fundamentals first, then add a short "## Xu hướng 2026" section (before the interview questions) with what changed recently, what interviewers now ask, and what is hype or still unproven. Mark claims you are unsure about.
 - Include 1 or 2 interview questions about verifying AI-generated code or AI-assisted work on this topic, when it is relevant.
 - Use tables and code blocks where they clarify. No raw HTML other than that first comment.`;
 
-export function lessonUser(topic: string, strandLabel: string, week: number): string {
+export function lessonUser(topic: string, strandLabel: string, week: number, strand?: LessonStrand): string {
+  const sources = strand ? `\n\n${sourcesPrompt(strand)}` : '';
+  return lessonBrief(topic, strandLabel, week) + sources;
+}
+
+function lessonBrief(topic: string, strandLabel: string, week: number): string {
   const base = `Strand: ${strandLabel}. Roadmap week ${week}.\nTopic: ${topic}`;
   if (!/optimizely/i.test(strandLabel)) return base;
   if (/foundations?/i.test(topic)) {

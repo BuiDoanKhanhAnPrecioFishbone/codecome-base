@@ -13,6 +13,7 @@ import type { Grade } from '../store.ts';
 import { HttpError, checkNotePath, createNote, listNotes, readNote, titleOf, writeNote } from './notes.ts';
 import { STRAND_LABEL, lessonKey, parseLessonKey, readLesson, topicOf, writeLesson } from './lessons.ts';
 import { addDays, dayKey, loadRoadmap, planFor, weekOf, type Week } from './roadmap.ts';
+import { verifyLinks } from '../sources.ts';
 
 const MAX_NOTE_CHARS = 60_000;
 
@@ -22,6 +23,7 @@ export interface Ctx {
   now: () => Date;
   env?: NodeJS.ProcessEnv;
   fetch?: typeof fetch;
+  linkFetch?: typeof fetch;
 }
 
 export interface Reply {
@@ -273,13 +275,15 @@ export function createApp(ctx: Ctx) {
       if (existing && body.replace !== true) throw new HttpError(409, 'Bài đã tồn tại');
       const { data, usage } = await callLlm<string>({
         system: LESSON_SYSTEM,
-        user: lessonUser(topicOf(w, strand), STRAND_LABEL[strand], week),
+        user: lessonUser(topicOf(w, strand), STRAND_LABEL[strand], week, strand),
         validate: parseLesson,
         maxTokens: 7000,
       });
-      const markdown = data.startsWith('<!-- ai-generated -->') ? data : `<!-- ai-generated -->\n${data}`;
-      await writeLesson(storage, key, markdown);
-      return ok({ usage });
+      const draft = data.startsWith('<!-- ai-generated -->') ? data : `<!-- ai-generated -->\n${data}`;
+      // Injected fetch (tests) only gets the host allowlist; the real fetch also checks liveness.
+      const checked = await verifyLinks(draft, ctx.linkFetch ?? (ctx.fetch ? null : fetch));
+      await writeLesson(storage, key, checked.markdown);
+      return ok({ usage, links: { kept: checked.kept, removed: checked.removed } });
     },
 
     'GET /api/notes': async () => {
