@@ -20,7 +20,7 @@ test('parses all 23 weeks from the real ROADMAP.md', () => {
 test('Optimizely track covers weeks 1-10 and ends before the January weeks', () => {
   assert.deepEqual(weeks.filter((w) => w.o).map((w) => w.n), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   assert.match(weeks[0].o, /Foundations/);
-  assert.match(weeks[0].o, /30\/10/);
+  assert.match(weeks[0].o, /29\/10/);
   assert.match(weeks[7].o, /19\/12/);
 });
 
