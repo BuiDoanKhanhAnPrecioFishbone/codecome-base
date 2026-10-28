@@ -49,14 +49,14 @@ S = hạ tầng + system design + kiến trúc · F = frontend sâu · A = AI ·
 
 | Tuần | Ngày | O (Optimizely) | S | F | A | D | T7 (project/lab/checkpoint) |
 |---|---|---|---|---|---|---|---|
-| 1 | 26/10–1/11 | **Ôn Foundations (7 domain, đề 40 câu tình huống, 60')**: T4 28/10 Platform + Content + Product, T5 29/10 Experimentation + Commerce + Data + AI, mock 40 câu; **thi Foundations T6 30/10**; T7–CN nghỉ/setup CMS 12 nhẹ |  Network: TCP/IP, DNS, HTTP, TLS | Browser internals: rendering pipeline, critical rendering path | C# gọi LLM (Ollama): token, tham số | Arrays & Hashing | Chọn sản phẩm, viết 1 trang vấn đề + người dùng; thi thử IELTS |
-| 2 | 2–8/11 | Bắt đầu Core Developer: setup CMS 12 local (Alloy, license dev), content model + repository, đọc Academy "PaaS CMS Developer core" (nếu trượt thi lại sau 2 ngày) | Linux/shell + Docker | JavaScript sâu: closure, prototype, async, event loop | Structured output (JSON schema), validate + retry | Two Pointers | Skeleton .NET API + React/Next, 1 chức năng cốt lõi |
-| 3 | 9–15/11 | Content types + property types, rendering (Razor/ViewComponent), versions + publishing, content events | Docker compose + CI/CD (GitHub Actions), supply chain cơ bản (pin version, Dependabot, SBOM) | TypeScript sâu: generics, narrowing, utility types | Context engineering (không chỉ prompt); Karpathy "Intro to LLMs" | Stack | Chức năng cốt lõi + auth |
-| 4 | 16–22/11 | Initialization modules (`IInitializableModule`), DI, scheduled jobs, plugin, custom editor/property, on-page editing | Deploy miễn phí (Cloudflare Tunnel/Oracle Free), Nginx, HTTPS; DB: index, execution plan | React internals: render/commit, reconciliation, vì sao re-render; React 19 Actions + `useOptimistic` | Tool calling cơ bản | Binary Search | **Checkpoint 1**; app chạy bằng `docker compose` |
+| 1 | 26/10–1/11 | **Foundations (20 câu/30', theo blueprint; lobby thi mới là số chính xác)**: T4 28/10 chạy **practice mode** (không giới hạn) để chẩn đoán domain yếu + đọc bài tổng quan; T5 29/10 vá domain yếu theo blueprint rồi practice lần 2 (≥85%); **thi Foundations T6 30/10**; T7–CN nghỉ/setup CMS 12 nhẹ |  Network: TCP/IP, DNS, HTTP, TLS | Browser internals: rendering pipeline, critical rendering path | C# gọi LLM (Ollama): token, tham số | Arrays & Hashing | Chọn sản phẩm, viết 1 trang vấn đề + người dùng; thi thử IELTS |
+| 2 | 2–8/11 | Bắt đầu Core Developer: setup CMS 12 local (Alloy, license dev), content model + repository (`IContentLoader`), eLearning Academy "CMS PaaS Development Fundamentals" (nếu trượt kỳ thi 30/10: thi lại sau 2 ngày) | Linux/shell + Docker | JavaScript sâu: closure, prototype, async, event loop | Structured output (JSON schema), validate + retry | Two Pointers | Skeleton .NET API + React/Next, 1 chức năng cốt lõi |
+| 3 | 9–15/11 | Content types + property types, rendering (Razor/ViewComponent), versions + publishing, content events, on-page editing (DevEx 45%, phần 1) | Docker compose + CI/CD (GitHub Actions), supply chain cơ bản (pin version, Dependabot, SBOM) | TypeScript sâu: generics, narrowing, utility types | Context engineering (không chỉ prompt); Karpathy "Intro to LLMs" | Stack | Chức năng cốt lõi + auth |
+| 4 | 16–22/11 | Initialization modules (`IInitializableModule`), DI, scheduled jobs, plugin, custom editor/property (DevEx 45%, phần 2) | Deploy miễn phí (Cloudflare Tunnel/Oracle Free), Nginx, HTTPS; DB: index, execution plan | React internals: render/commit, reconciliation, vì sao re-render; React 19 Actions + `useOptimistic` | Tool calling cơ bản | Binary Search | **Checkpoint 1**; app chạy bằng `docker compose` |
 | 5 | 23–29/11 | Content Delivery API + Optimizely Graph (GraphQL): indexing, query, pagination, webhooks, auth | DB: transaction, isolation, N+1 (EF Core); log/metric/trace (OpenTelemetry + Aspire dashboard) | React performance: React Compiler vs memo thủ công, Profiler, virtualization, code splitting | Eval mini: 20 case cho 1 tác vụ; tracing LLM bằng Langfuse (self-host) | Sliding Window | Thêm CI + deploy lần đầu |
-| 6 | 30/11–6/12 | Permissions/ACL, visitor groups + personalization, SSO/OIDC, roles, Opti ID | k6 load test, ước lượng tải, SLO + DORA metrics; khung system design | State & data fetching: server state vs client state (TanStack Query), cache, optimistic update, `use` + Suspense | Embeddings + vector search (pgvector) | Linked List | Hoàn thiện tính năng cho người dùng thử |
-| 7 | 7–13/12 | DXP: environments, deployment/CI-CD, config, CDN, caching, scaling; DAM, migration/export, AI (Opal) | SD: cache, CDN, load balancer, replication, sharding | Web performance: Core Web Vitals (LCP, INP, CLS), bundle, ảnh/font, caching | RAG: chunking, hybrid search + rerank | Trees | Lab Redis trong `labs/` |
-| 8 | 14–20/12 | Mock exam theo trọng số domain, vá điểm yếu; **thi Core Developer T7 19/12** | SD: queue, pub/sub, outbox, idempotency | Next.js rendering: SSR/SSG/ISR/streaming/RSC + Server Actions; so với Nuxt | RAG: phân tích lỗi + eval retrieval | Trees (BST/BFS) | **v1:** 3–5 người dùng thật; **Checkpoint 2** rút gọn 15 câu (19/12 là ngày thi Optimizely, ưu tiên nghỉ ngơi) |
+| 6 | 30/11–6/12 | DevEx phần 3: DAM, data migration/content export, tích hợp marketing automation, AI content generation (Opal); User Management Security: permissions/ACL, visitor groups, personalization | k6 load test, ước lượng tải, SLO + DORA metrics; khung system design | State & data fetching: server state vs client state (TanStack Query), cache, optimistic update, `use` + Suspense | Embeddings + vector search (pgvector) | Linked List | Hoàn thiện tính năng cho người dùng thử |
+| 7 | 7–13/12 | Access Control: roles, SSO/OIDC, user provisioning, organization, Opti ID; Cloud: DXP environments, CI/CD + deployment API, config, CDN, caching, auto scaling | SD: cache, CDN, load balancer, replication, sharding | Web performance: Core Web Vitals (LCP, INP, CLS), bundle, ảnh/font, caching | RAG: chunking, hybrid search + rerank | Trees | Lab Redis trong `labs/` |
+| 8 | 14–20/12 | Practice mode mỗi ngày (không giới hạn, không giám sát) + mỗi ngày viết 1 scenario/rationale theo rubric; vá domain yếu; **thi Core Developer T7 19/12** | SD: queue, pub/sub, outbox, idempotency | Next.js rendering: SSR/SSG/ISR/streaming/RSC + Server Actions; so với Nuxt | RAG: phân tích lỗi + eval retrieval | Trees (BST/BFS) | **v1:** 3–5 người dùng thật; **Checkpoint 2** rút gọn 15 câu (19/12 là ngày thi Optimizely, ưu tiên nghỉ ngơi) |
 | 9 | 21–27/12 | Dự phòng: retake nếu cần (chờ 2 ngày), ôn domain yếu | Kiến trúc: modular monolith vs microservices, DDD bounded context, Clean Architecture | Web security: XSS, CSRF, CSP, CORS, OAuth2/OIDC, passkeys/WebAuthn | Agent loop (Anthropic + HF Agents unit 1–2) | Heap | Chuyển project sang modular monolith + ADR; đo điểm nghẽn thật |
 | 10 | 28/12–3/1 | Dự phòng cuối đến 30/12 (nếu đã đậu: dùng giờ này cho project/mảng yếu) | K8s 1: Pod, Deployment, Service (kind) | Testing: Vitest (browser mode), Testing Library, Playwright; mock đọc/debug code lạ | Agent có 2 tool, giới hạn số bước, log từng bước, retry/resume idempotent (tính bền) | Backtracking | Lab: image của project chạy trên kind |
 | 11 | 4–10/1 | — | Microservices thực hành: tách service, API gateway, saga, contract test; Polly (timeout/retry/circuit breaker) | Accessibility + design system + CSS architecture | Eval agent: phân loại lỗi, LLM-as-judge | Graphs BFS/DFS | Lab: 2 service + gateway trong `labs/microservices` |
@@ -76,25 +76,61 @@ S = hạ tầng + system design + kiến trúc · F = frontend sâu · A = AI ·
 
 Tuần nào quá tải: giữ S + D + O, giảm F hoặc A, đừng bỏ cả 4 mảng. Tuần 19–20 để đào sâu và mock, từ tuần 21 các mảng chuyển sang chế độ ôn + phỏng vấn thật.
 
-## Chứng chỉ Optimizely CMS PaaS Developer (hạn 31/12/2026)
+## Chứng chỉ Optimizely CMS PaaS (Foundations 30/10, Core Developer hạn 31/12/2026)
 
-Theo blueprint chính thức (certification.optimizely.com, track CMS PaaS · Core · Developer). **Hãy mở trang đó kiểm tra lại phí thi, số lần thi và điều kiện trước khi đặt lịch**, vì thông tin có thể đổi.
+Nguồn chính: certification.optimizely.com (trang exams, program, FAQ, blueprint), kiểm tra ngày 28/10/2026. **Cảnh báo nguồn mâu thuẫn:** Optimizely Academy và vài blog cũ nói đề 50 câu/60', đạt 80%, hiệu lực 24 tháng, $300 (chương trình cũ, 2025); slide của leader ghi Foundation 40 câu/60'; trang certification mới ghi Foundation 20 câu/30'. **Màn hình lobby trước khi thi mới là số chính xác**, phí thi cũng chỉ hiện lúc đăng ký. Chưa tìm thấy blog review đề Foundations/Core của chương trình mới ngoài 1 bài (xem "Review của người thi" bên dưới), nên đừng tin tuyệt đối vào con số nào.
+
+**Chương trình:** 17 sản phẩm, 3 tầng (Foundation → Core → Advanced), 5 vai trò (Developer, Solutions Architect, Practitioner, Strategist, Administrator). Hiện có đề cho 13/17 sản phẩm (slide leader liệt kê 14): CMS PaaS, CMS SaaS, Configured Commerce, Commerce Connect, Web Experimentation, Feature Experimentation, CMP, ODP, Analytics, Agent Platform, cộng 3 "mini-cert" Opti ID, Graph, OCP. Chưa có đề: Campaign, Personalization, Product Recommendations, Content Recommendations. Meta-credential: Champion (Core ở ≥2 sản phẩm), Master (≥4), Legend (Master + Advanced ở ≥3). Chỉ cần Foundation 1 lần cho mọi Core.
 
 | | Foundations (điều kiện trước) | Core Developer |
 |---|---|---|
-| Đề | 40 câu trắc nghiệm dạng tình huống, 60', đạt 70% (theo slide của leader; blueprint web ghi 20 câu/30', **xem lại khi đặt lịch**) | 30 câu trắc nghiệm + 2 bài code/config + 1 giải thích, 90' (slide leader; blueprint web ghi 1 tình huống/75'), đạt ≥70% |
+| Đề | 20 câu trắc nghiệm, 30', ≥70% | 30 câu trắc nghiệm + 1 scenario (chọn 1 trong 3) + 1 rationale, 75', ≥70% tổng, MCQ ≥65%, scenario ≥65% |
 | Lịch của mình | **T6 30/10 (tuần 1)** | T7 19/12 (cuối tuần 8) |
-| Dự phòng | thi lại sau 2 ngày | tuần 9 + 28–30/12; tối đa 3 lần/quý |
+| Thi lại | 10 lần/quý, chờ 2 ngày | 3 lần/quý, chờ 2 ngày; dự phòng tuần 9 + 28–30/12 |
+| Practice mode | Không giới hạn, không giám sát | Không giới hạn, không giám sát |
 
 **Trọng số Core Developer** (dồn thời gian theo đây): Developer Experience & Extensibility **45%** (on-page editing, custom editor, plugin, initialization module, content events, DAM, migration/export, AI) · Content Delivery & APIs **20%** (GraphQL/Optimizely Graph, headless, indexing, search, webhooks, auth) · User Management Security **15%** (permissions, visitor groups, personalization) · Cloud Infrastructure & Deployment **10%** (CI/CD, môi trường, CDN, caching) · Access Control & User Management **10%** (role, SSO, provisioning).
 
-**Foundations** gồm 7 domain: Platform Services 20%, Content Management & Delivery 15%, Experimentation & Personalization 15%, Commerce & B2B 15%, Data Platform & Analytics 15%, Product Fundamentals 10%, AI/Automation/Agent 10%. Chỉ cần hiểu khái niệm và thuật ngữ, không cần code sâu; đề dạng tình huống nên luyện chọn sản phẩm/giải pháp đúng cho từng bối cảnh.
+**Foundations** (blueprint) gồm 7 domain, kèm chủ đề thật sự được liệt kê:
+- Platform Services & Infrastructure 20% (~4 câu): kiến trúc nền tảng, điều phối đa sản phẩm, SSO, tích hợp dữ liệu, cloud hosting, auto scaling, CDN, HA, CI/CD, môi trường.
+- Content Management & Delivery 15%: content type, block composition, content reuse, multi-site, URL, Visual Builder.
+- Experimentation & Personalization 15%: A/B, feature flag, audience, traffic allocation, thống kê, rollout dần, kill switch, server-side.
+- Commerce & B2B 15%: catalog, checkout, order, pricing/promotion, inventory, B2B (purchase order, approval, budget, punchout).
+- Data Platform & Analytics 15%: unified profile, real-time segment, event tracking, identity resolution, activation, dashboard, data warehouse.
+- Product Fundamentals 10%: câu hỏi trải nhiều sản phẩm (campaign, catalog, cart, API integration...).
+- AI, Automation & Agent 10%: agent builder, AI content, brand guideline, governance/guardrails, Content Graph.
+Đề chỉ kiểm tra hiểu khái niệm và chọn đúng sản phẩm cho đúng bối cảnh, không code. Blueprint liệt kê topic dạng từ khóa, nên đề không giới hạn ở 7 ví dụ nào.
 
-**Lộ trình của leader (slide nội bộ):** Foundation (không điều kiện) → Developer Core (cần Foundation + C#/ASP.NET Core) → Developer Advanced (cần kinh nghiệm dự án thật) hoặc nhánh Solution Architect. Chứng chỉ hiệu lực **1 năm**, gia hạn mỗi năm bằng đề delta 15–20 câu/~30', ân hạn 30 ngày. Tài liệu: Optimizely Academy (PaaS CMS, Developer core), docs.developers.optimizely.com, chạy Alloy local, tự làm 1 page type + block + scheduled job. Câu tình huống/giải thích chấm theo rubric: mỗi yêu cầu 1 ý đánh số, dùng đúng API (IContentLoader, initialization module, content events, scheduled job), công thức "chọn X vì [bối cảnh] → tránh [rủi ro] → cải thiện [kết quả]; loại Y vì [lý do]".
+**Con đường chứng chỉ của mình:** Foundations (30/10) → CMS PaaS Developer Core (19/12) → Developer Advanced (cần Core, đề 20 MCQ + scenario + rationale, 90') → Solutions Architect Core (Foundation; nên có Developer Core) → Solutions Architect Advanced. Các Core khác (Graph, Opti ID là mini-cert) bám sát domain Content Delivery và Access Control của Developer, rẻ để lấy thêm và giúp đủ điều kiện Champion/Master.
 
-**Cách học mảng O (1h/ngày):** T2–T5 đọc docs + làm lab trên CMS 12 (Alloy sample) rồi viết note `notes/optimizely/`; T6 làm 10 câu trắc nghiệm tự đặt (nhờ AI sinh, đối chiếu docs); T7 lab tổng hợp hoặc thi; CN 30' quiz tuần + thẻ Anki. Từ tuần 6 mỗi tuần 1 mock 30 câu bấm giờ. Mỗi chủ đề phải có 1 thứ chạy được trong site Alloy của bạn, vì câu tình huống hỏi cách xử lý chứ không hỏi thuộc lòng.
+| Đề (Core/Advanced) | Developer Core | Developer Advanced | Solutions Architect Core | Solutions Architect Advanced |
+|---|---|---|---|---|
+| Developer Experience & Extensibility | 45% | 30% | 15% | — |
+| Content Delivery & APIs | 20% | 30% | 20% | 22% |
+| Cloud Infrastructure & Deployment | 10% | 20% | 20% | 28% |
+| User Management Security | 15% | 10% | — | — |
+| Access Control & User Management | 10% | 10% | 5% | 12% |
+| Content Modeling / Multi-site / Personalization | — | — | 15% / 10% / 5% | 7% / 18% / 10% |
 
-Tuần 10 trở đi nếu đã đậu: cột O là "—" và 1h/ngày dồn lại cho project/mảng yếu.
+Hiểu: Developer đi sâu code + API; Advanced tăng trọng Cloud và Delivery; Solutions Architect dồn vào cloud, delivery, multi-site và đánh đổi thiết kế. **Hiệu lực khoảng 1 năm** (FAQ; Academy cũ nói 24 tháng), gia hạn bằng đề delta ~15–20 câu/30', có ân hạn. Nên gom Advanced/SA trong cùng 12 tháng để gia hạn cùng lúc.
+
+**Review của người thi (nguồn tìm được):**
+- Blog "A Look at the New Optimizely Certification Program" (9/2026, đã thi Foundations + Core Opti ID, Agent Platform, CMS PaaS): Foundations khá dễ nếu từng dùng Optimizely, nhiều câu suy luận được; Core thêm scenario (3 scenario, chọn 1) cộng rationale giải thích; câu trả lời phải bám tình huống, không trả lời chung chung; chuẩn bị bằng Academy + blueprint + luyện giải thích quyết định.
+- Blog "My Journey to Optimizely Certification" (1/2025, đề cũ Developer): học 2h/ngày trong 1 tháng (tối thiểu 2 tuần), Pomodoro 25/5; dùng AI đóng vai gia sư tạo câu hỏi, chưa cho đáp án, chấm điểm mình; NotebookLM nghe lại; có câu hỏi code snippet và DXP/deployment API mà eLearning cơ bản không có; đọc kỹ đề, vào sớm 30' để xử lý sự cố mạng.
+- Blog SaaS CMS (5/2026, đề cũ): đừng mua đề rồi mới học; "build things" hơn là đọc bị động.
+- Lưu ý: hầu như không có blog chi tiết về đề mới, vì chương trình mới ra từ giữa 2026. Đừng tin tài liệu "đề thật" / dump câu hỏi trên mạng: vi phạm quy định, hay sai thời điểm.
+
+**Quy định thi (FAQ):** proctored toàn màn hình, không đổi tab/cửa sổ (3 lần vi phạm là bị kết thúc), không copy/paste, không tài liệu ngoài; timer không dừng; thoát giữa chừng tính là 1 lần trượt; scenario có editor code/config, nên dùng laptop.
+
+**Cách học mảng O (1h/ngày) cho mỗi tuần:**
+1. T2–T4: đọc blueprint domain của tuần + Academy eLearning/docs, làm lab trên CMS 12 (Alloy), ghi note `notes/optimizely/` (thẻ Anki: khái niệm → chọn khi nào).
+2. T5: 20 câu tự kiểm tra (nhờ AI làm gia sư: hỏi rồi chấm, chưa cho đáp án), đối chiếu docs; ghi mọi câu sai vào sổ lỗi, mỗi lỗi 1 thẻ.
+3. T6: **practice mode** (đề thật, không giới hạn): ghi điểm theo domain, dồn thời gian vào domain điểm thấp × trọng số cao.
+4. T7: viết 1 scenario + rationale theo rubric (mỗi yêu cầu 1 ý đánh số; "chọn X vì [bối cảnh] → tránh [rủi ro] → cải thiện [kết quả]; loại Y vì [lý do]"; không chắc thì vẫn viết 1–2 dòng vì có điểm từng phần). Code scenario phải đúng API (`IContentLoader`, initialization module, content events, scheduled job).
+5. CN 30': ôn thẻ Anki + sổ lỗi.
+Mỗi chủ đề phải có 1 thứ chạy được trong site Alloy của bạn. Từ tuần 6 mỗi tuần 1 lượt practice bấm giờ đủ đề. Chuẩn bị ≥85% practice liên tiếp 2 lần rồi mới thi.
+
+Tuần 10 trở đi nếu đã đậu: cột O là "—" và 1h/ngày dồn lại cho project/mảng yếu. **Giai đoạn 2 (sau 4/2027, chưa lên lịch chi tiết):** Developer Advanced (cần kinh nghiệm dự án thật, nên làm trên dự án ở công ty) → Solutions Architect Core → Solutions Architect Advanced, mỗi đề ~4–6 tuần ôn, xen kẽ với việc ôn system design vì domain Cloud/Delivery/multi-site trùng mảng S. Graph và Opti ID Core là mini-cert nên đưa vào nếu muốn đủ Champion/Master.
 
 ## Tài liệu chính (đều miễn phí)
 
