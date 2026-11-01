@@ -5,6 +5,7 @@ import { TodayProvider, useApi } from './lib.tsx';
 import NoteDetailPage from './pages/NoteDetail.tsx';
 import LessonPage from './pages/Lesson.tsx';
 import NotesPage from './pages/Notes.tsx';
+import OptiPage from './pages/Opti.tsx';
 import ProgressPage from './pages/Progress.tsx';
 import QuizPage from './pages/Quiz.tsx';
 import ReviewPage from './pages/Review.tsx';
@@ -15,6 +16,7 @@ const NAV = [
   { to: '/review', label: 'Ôn tập' },
   { to: '/notes', label: 'Notes' },
   { to: '/quiz', label: 'Phỏng vấn AI' },
+  { to: '/opti', label: 'Optimizely' },
   { to: '/progress', label: 'Tiến độ' },
 ];
 
@@ -72,6 +74,7 @@ function Layout({ onLogout }: { onLogout?: () => void }) {
           <Route path="/notes" element={<NotesPage />} />
           <Route path="/notes/*" element={<NoteDetailPage />} />
           <Route path="/quiz" element={<QuizPage />} />
+          <Route path="/opti" element={<OptiPage />} />
           <Route path="/progress" element={<ProgressPage />} />
           <Route
             path="*"

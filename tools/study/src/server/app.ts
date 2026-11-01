@@ -14,6 +14,7 @@ import { HttpError, checkNotePath, createNote, listNotes, readNote, titleOf, wri
 import { STRAND_LABEL, lessonKey, parseLessonKey, readLesson, topicOf, writeLesson } from './lessons.ts';
 import { addDays, dayKey, loadRoadmap, planFor, weekOf, type Week } from './roadmap.ts';
 import { verifyLinks } from '../sources.ts';
+import { optiApp } from './opti.ts';
 
 const MAX_NOTE_CHARS = 60_000;
 
@@ -24,6 +25,7 @@ export interface Ctx {
   env?: NodeJS.ProcessEnv;
   fetch?: typeof fetch;
   linkFetch?: typeof fetch;
+  docsFetch?: typeof fetch;
 }
 
 export interface Reply {
@@ -170,6 +172,7 @@ export function createApp(ctx: Ctx) {
   }
 
   const routes: Record<string, (q: URLSearchParams, body: Body) => Promise<Reply> | Reply> = {
+    ...optiApp({ storage, now: ctx.now, callLlm, docsFetch: ctx.docsFetch ?? fetch }),
     'GET /api/status': async () => {
       const cfg = loadConfig(paths.envFile, ctx.env ?? process.env);
       return ok({

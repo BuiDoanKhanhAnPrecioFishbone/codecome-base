@@ -93,13 +93,18 @@ const review = (minutes: number, title: string): PlanItem => ({ slot: 'rev', str
 export function planFor(week: Week | null, key: string): PlanItem[] {
   const items = coreDay(week, key);
   if (!week?.o) return items;
-  const sunday = parseDayKey(key).getDay() === 0;
+  const dow = parseDayKey(key).getDay();
+  const sunday = dow === 0;
+  const sprint = /^\*{0,2}Sprint/i.test(week.o);
+  const minutes = sprint ? (sunday ? 45 : dow === 6 ? 120 : 90) : sunday ? 30 : 60;
   const o: PlanItem = {
     slot: 'o',
     strand: 'O',
-    minutes: sunday ? 30 : 60,
+    minutes,
     title: sunday ? `Optimizely: ôn lại + quiz tuần (${week.o})` : `Optimizely: ${week.o}`,
-    detail: 'Lab trên Alloy/CMS 12 + ghi note vào notes/optimizely/',
+    detail: sprint
+      ? 'Học bài O + luyện/thi thử trong Optimizely Exam Lab (/opti)'
+      : 'Lab trên Alloy/CMS 12 + ghi note vào notes/optimizely/',
   };
   const at = items.findIndex((i) => i.strand === 'EN');
   items.splice(at === -1 ? items.length : at, 0, o);

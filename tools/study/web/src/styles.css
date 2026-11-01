@@ -1645,3 +1645,26 @@ input[type='search'],
   gap: 8px;
   font-weight: 600;
 }
+
+/* Optimizely Exam Lab */
+.opti-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.opti-tabs button { padding: 8px 14px; border: 1px solid var(--border); border-radius: var(--r); background: #fff; cursor: pointer; font: inherit; }
+.opti-tabs button.is-on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.opti-panel { padding: 20px; border: 1px solid var(--hair); border-radius: var(--r); background: #fff; }
+.opti-table { width: 100%; border-collapse: collapse; }
+.opti-table th, .opti-table td { padding: 8px; border-bottom: 1px solid var(--hair); text-align: left; vertical-align: middle; }
+.opti-table .bar { margin-bottom: 4px; max-width: 160px; }
+.opti-actions { display: flex; gap: 6px; justify-content: flex-end; }
+.opti-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 20px; }
+.opti-chips button { min-width: 34px; padding: 6px 8px; border: 1px solid var(--border); border-radius: var(--r); background: #fff; cursor: pointer; font: inherit; }
+.opti-chips button.is-done { background: var(--purple-soft); border-color: var(--purple-mid); }
+.opti-chips button.is-on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.opti-q { font-size: 1.05rem; line-height: 1.5; }
+.opti-opt { display: flex; gap: 10px; align-items: flex-start; padding: 12px; border: 1px solid var(--border); border-radius: var(--r); cursor: pointer; background: #fff; }
+.opti-opt.is-on { border-color: var(--purple); background: var(--purple-soft); }
+.opti-review { margin: 12px 0; padding: 14px 16px; border: 1px solid var(--hair); border-left-width: 4px; border-radius: var(--r); background: #fff; }
+.opti-review.is-ok { border-left-color: #2e8b57; }
+.opti-review.is-bad { border-left-color: #c0392b; }
+.opti-review ul { list-style: none; padding: 0; margin: 8px 0; }
+.opti-right { color: #1f6b41; font-weight: 600; }
+.opti-wrong { color: #a93226; }

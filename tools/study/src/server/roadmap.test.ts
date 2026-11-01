@@ -17,11 +17,12 @@ test('parses all 23 weeks from the real ROADMAP.md', () => {
   assert.match(weeks[0].o, /CMS 12/);
 });
 
-test('Optimizely track covers weeks 1-10 and ends before the January weeks', () => {
-  assert.deepEqual(weeks.filter((w) => w.o).map((w) => w.n), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+test('Optimizely track: Foundations passed, 4 cert sprints, then retake buffer', () => {
+  assert.deepEqual(weeks.filter((w) => w.o).map((w) => w.n), [1, 2, 3, 4, 5, 6, 7]);
   assert.match(weeks[0].o, /Foundations/);
   assert.match(weeks[0].o, /29\/10/);
-  assert.match(weeks[7].o, /19\/12/);
+  for (const i of [1, 2, 3, 4]) assert.match(weeks[i].o, /^\**Sprint/);
+  assert.ok(!weeks[7].o);
 });
 
 test('flags checkpoints, apply week and Tet week', () => {
@@ -57,6 +58,14 @@ test('daily plan follows the weekly schedule', () => {
   const o = (day: string) => planFor(w1, day).find((i) => i.slot === 'o')!;
   assert.equal(o('2026-10-26').minutes, 60);
   assert.equal(o('2026-11-01').minutes, 30);
+});
+
+test('sprint weeks give Optimizely more time', () => {
+  const o = (day: string) => planFor(weeks[1], day).find((i) => i.slot === 'o')!;
+  assert.match(weeks[1].o, /Sprint/);
+  assert.equal(o('2026-11-02').minutes, 90);
+  assert.equal(o('2026-11-07').minutes, 120);
+  assert.equal(o('2026-11-08').minutes, 45);
 });
 
 test('weeks without an Optimizely topic have no O slot', () => {

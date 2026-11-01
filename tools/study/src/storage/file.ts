@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import { listNoteFiles } from '../cards.ts';
 import type { Paths } from '../paths.ts';
@@ -12,7 +12,7 @@ function writeJson(file: string, value: unknown): void {
   renameSync(tmp, file);
 }
 
-export const LESSON_KEY = /^w\d{2}-[SFADO]$/;
+export const LESSON_KEY = /^(w\d{2}-[SFADO]|opti-[a-z0-9-]{1,40})$/;
 
 /** The original layout: notes/, lessons/ and data/ under the repo root. */
 export function fileStorage(paths: Paths): Storage {
@@ -75,6 +75,10 @@ export function fileStorage(paths: Paths): Storage {
           const file = join(paths.lessonsDir, `${key}.md`);
           if (existsSync(file)) out.push({ key, content: readFileSync(file, 'utf8'), updated: statSync(file).mtime.toISOString() });
         }
+      }
+      for (const f of readdirSync(paths.lessonsDir)) {
+        const m = /^(opti-[a-z0-9-]{1,40})\.md$/.exec(f);
+        if (m) out.push({ key: m[1], content: readFileSync(join(paths.lessonsDir, f), 'utf8'), updated: statSync(join(paths.lessonsDir, f)).mtime.toISOString() });
       }
       return out;
     },

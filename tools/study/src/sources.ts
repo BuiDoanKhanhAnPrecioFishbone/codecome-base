@@ -7,6 +7,7 @@ export interface Source {
 
 const OPTI_DOCS = 'https://docs.developers.optimizely.com';
 const CMS_DOCS = `${OPTI_DOCS}/content-management-system/docs`;
+const NEW_DOCS = 'https://docs.optimizely.com';
 const CERT = 'https://certification.optimizely.com';
 
 // Every URL here returned 200 with a real page title when checked (28/10/2026).
@@ -71,7 +72,18 @@ export const SEED_SOURCES: Record<LessonStrand, Source[]> = {
     { name: 'Certification: Foundations blueprint', url: `${CERT}/blueprint?track=foundation&tier=foundation` },
     { name: 'Certification: CMS PaaS Core Developer blueprint', url: `${CERT}/blueprint?track=cms-paas&tier=core&role=developer` },
     { name: 'Certification: CMS PaaS Advanced Developer blueprint', url: `${CERT}/blueprint?track=cms-paas&tier=advanced&role=developer` },
-    { name: 'Certification: CMS PaaS Core Solutions Architect blueprint', url: `${CERT}/blueprint?track=cms-paas&tier=core&role=solutions-architect` },
+    { name: 'Certification: CMS PaaS Core Solutions Architect blueprint', url: `${CERT}/blueprint?track=cms-paas&tier=core&role=solutions_architect` },
+    { name: 'Certification: CMS PaaS Advanced Solutions Architect blueprint', url: `${CERT}/blueprint?track=cms-paas&tier=advanced&role=solutions_architect` },
+    { name: 'Optimizely docs: CMS 12 home', url: `${NEW_DOCS}/cms-12/docs` },
+    { name: 'Optimizely docs: CMS 13 home', url: `${NEW_DOCS}/cms-13/docs` },
+    { name: 'Optimizely docs: Graph', url: `${NEW_DOCS}/graph/docs` },
+    { name: 'Optimizely docs: Graph webhooks', url: `${NEW_DOCS}/graph/docs/webhooks` },
+    { name: 'Optimizely docs: Opti ID', url: `${NEW_DOCS}/opti-id/docs` },
+    { name: 'Optimizely docs: DXP', url: `${NEW_DOCS}/dxp/docs` },
+    { name: 'Optimizely docs: DXP deploying', url: `${NEW_DOCS}/dxp/docs/deploying` },
+    { name: 'Optimizely docs: DXP CDN recommendations', url: `${NEW_DOCS}/dxp/docs/cdn-recommendations` },
+    { name: 'Optimizely docs: CMS 12 audiences', url: `${NEW_DOCS}/cms-12/docs/audiences` },
+    { name: 'Optimizely docs: CMS 12 languages', url: `${NEW_DOCS}/cms-12/docs/languages` },
     { name: 'Certification: Exams', url: `${CERT}/exams` },
     { name: 'Certification: Program', url: `${CERT}/program` },
     { name: 'Certification: FAQ', url: `${CERT}/faq` },
