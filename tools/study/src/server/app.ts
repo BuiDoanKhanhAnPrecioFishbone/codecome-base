@@ -280,7 +280,7 @@ export function createApp(ctx: Ctx) {
         system: LESSON_SYSTEM,
         user: lessonUser(topicOf(w, strand), STRAND_LABEL[strand], week, strand),
         validate: parseLesson,
-        maxTokens: 7000,
+        maxTokens: strand === 'O' ? 10000 : 7000,
       });
       const draft = data.startsWith('<!-- ai-generated -->') ? data : `<!-- ai-generated -->\n${data}`;
       // Injected fetch (tests) only gets the host allowlist; the real fetch also checks liveness.
