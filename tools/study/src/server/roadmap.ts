@@ -89,27 +89,39 @@ const ENGLISH: PlanItem[] = [
 
 const review = (minutes: number, title: string): PlanItem => ({ slot: 'rev', strand: 'REV', minutes, title });
 
-/** Daily schedule from ROADMAP.md: Mon D+S, Tue F, Wed D+S, Thu A, Fri D+F, Sat project/lab, Sun review; plus the Optimizely hour while the cert track is active. */
+/** Daily schedule from ROADMAP.md: Mon D+S, Tue F, Wed D+S, Thu A, Fri D+F, Sat project/lab, Sun review; plus the Optimizely hour while the cert track is active. Sprint weeks drop S/F/A/D and give the whole tech time to Optimizely. */
 export function planFor(week: Week | null, key: string): PlanItem[] {
-  const items = coreDay(week, key);
-  if (!week?.o) return items;
   const dow = parseDayKey(key).getDay();
   const sunday = dow === 0;
-  const sprint = /^\*{0,2}Sprint/i.test(week.o);
-  const minutes = sprint ? (sunday ? 45 : dow === 6 ? 120 : 90) : sunday ? 30 : 60;
-  const o: PlanItem = {
-    slot: 'o',
-    strand: 'O',
-    minutes,
-    title: sunday ? `Optimizely: ôn lại + quiz tuần (${week.o})` : `Optimizely: ${week.o}`,
-    detail: sprint
-      ? 'Học bài O + luyện/thi thử trong Optimizely Exam Lab (/opti)'
-      : 'Lab trên Alloy/CMS 12 + ghi note vào notes/optimizely/',
-  };
+  if (week && /^Sprint/i.test(week.o)) {
+    if (sunday) return [review(10, 'Ôn thẻ đến hạn'), optimizely(45, `Optimizely: ôn sổ lỗi + chuẩn bị tuần sau (${week.o})`, 'o')];
+    return [
+      review(10, 'Ôn thẻ đến hạn'),
+      optimizely(90, `Optimizely: học ${week.o}`, 'o1', 'Đọc bài học O của tuần + docs nguồn; ghi sổ lỗi'),
+      optimizely(90, 'Optimizely: luyện đề trong Exam Lab', 'o2', 'Tạo câu hỏi, luyện theo domain, thi thử bấm giờ (/opti)'),
+      ...ENGLISH,
+    ];
+  }
+  const items = coreDay(week, key);
+  if (!week?.o) return items;
+  const o = optimizely(
+    sunday ? 30 : 60,
+    sunday ? `Optimizely: ôn lại + quiz tuần (${week.o})` : `Optimizely: ${week.o}`,
+    'o',
+    'Luyện đề trong Exam Lab (/opti) + vá domain yếu',
+  );
   const at = items.findIndex((i) => i.strand === 'EN');
   items.splice(at === -1 ? items.length : at, 0, o);
   return items;
 }
+
+const optimizely = (minutes: number, title: string, slot: string, detail?: string): PlanItem => ({
+  slot,
+  strand: 'O',
+  minutes,
+  title,
+  ...(detail ? { detail } : {}),
+});
 
 function coreDay(week: Week | null, key: string): PlanItem[] {
   const dow = parseDayKey(key).getDay();

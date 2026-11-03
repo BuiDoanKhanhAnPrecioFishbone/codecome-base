@@ -117,7 +117,7 @@ test('today: week 1 plan, due count and phase', async () => {
   assert.equal(json.date, '2026-10-27');
   assert.equal(json.queueCount, 2);
   assert.equal(json.plan[0].slot, 'rev');
-  assert.equal(json.totalWeeks, 23);
+  assert.equal(json.totalWeeks, 26);
 });
 
 test('today: missed study items carry over until ticked', async () => {
@@ -215,7 +215,7 @@ test('quiz start and grade write a log entry', async () => {
 
 test('progress aggregates weeks, areas, heatmap and quiz', async () => {
   const { json } = await api('GET', '/api/progress');
-  assert.equal(json.weeks.length, 23);
+  assert.equal(json.weeks.length, 26);
   assert.equal(json.currentWeek, 1);
   assert.equal(json.heatmap.length, 84);
   assert.equal(json.heatmap.at(-1).day, '2026-10-27');
@@ -239,31 +239,31 @@ test('LLM endpoints report a missing key and upstream failures clearly', async (
 
 test('lessons: read curated, generate with AI, never overwrite curated', async () => {
   hasKey = true;
-  const none = await api('GET', '/api/lesson?week=2&strand=F');
+  const none = await api('GET', '/api/lesson?week=6&strand=F');
   assert.equal(none.status, 200);
   assert.equal(none.json.exists, false);
   assert.match(none.json.topic, /JavaScript/);
-  assert.equal((await api('GET', '/api/lesson?week=2&strand=X')).status, 400);
+  assert.equal((await api('GET', '/api/lesson?week=6&strand=X')).status, 400);
   assert.equal((await api('GET', '/api/lesson?week=50&strand=F')).status, 404);
 
   llmReply = { markdown: `# Bài thử\n\n${'Nội dung bài học. '.repeat(60)}` };
-  const gen = await api('POST', '/api/lesson/gen', { week: 2, strand: 'F' });
+  const gen = await api('POST', '/api/lesson/gen', { week: 6, strand: 'F' });
   assert.equal(gen.status, 200);
-  const made = await api('GET', '/api/lesson?week=2&strand=F');
+  const made = await api('GET', '/api/lesson?week=6&strand=F');
   assert.equal(made.json.exists, true);
   assert.equal(made.json.source, 'ai');
   assert.match(made.json.content, /^<!-- ai-generated -->\n# Bài thử/);
-  assert.equal((await api('POST', '/api/lesson/gen', { week: 2, strand: 'F' })).status, 409);
-  assert.equal((await api('POST', '/api/lesson/gen', { week: 2, strand: 'F', replace: true })).status, 200);
+  assert.equal((await api('POST', '/api/lesson/gen', { week: 6, strand: 'F' })).status, 409);
+  assert.equal((await api('POST', '/api/lesson/gen', { week: 6, strand: 'F', replace: true })).status, 200);
 
   mkdirSync(pathsFor(dir).lessonsDir, { recursive: true });
-  writeFileSync(join(pathsFor(dir).lessonsDir, 'w03-A.md'), '# Viết tay\n');
-  const hand = await api('GET', '/api/lesson?week=3&strand=A');
+  writeFileSync(join(pathsFor(dir).lessonsDir, 'w07-A.md'), '# Viết tay\n');
+  const hand = await api('GET', '/api/lesson?week=7&strand=A');
   assert.equal(hand.json.source, 'curated');
-  assert.equal((await api('POST', '/api/lesson/gen', { week: 3, strand: 'A', replace: true })).status, 409);
+  assert.equal((await api('POST', '/api/lesson/gen', { week: 7, strand: 'A', replace: true })).status, 409);
 
   llmReply = { markdown: 'ngắn' };
-  assert.equal((await api('POST', '/api/lesson/gen', { week: 4, strand: 'S' })).status, 502);
+  assert.equal((await api('POST', '/api/lesson/gen', { week: 8, strand: 'S' })).status, 502);
 });
 
 test('quizArea reads the area from CLI and server log formats', () => {

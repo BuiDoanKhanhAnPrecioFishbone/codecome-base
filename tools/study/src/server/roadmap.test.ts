@@ -6,12 +6,12 @@ import { addDays, parseRoadmap, planFor, weekOf } from './roadmap.ts';
 
 const weeks = parseRoadmap(readFileSync(`${ROOT}ROADMAP.md`, 'utf8'));
 
-test('parses all 23 weeks from the real ROADMAP.md', () => {
-  assert.equal(weeks.length, 23);
-  assert.deepEqual(weeks.map((w) => w.n), Array.from({ length: 23 }, (_, i) => i + 1));
+test('parses all 26 weeks from the real ROADMAP.md', () => {
+  assert.equal(weeks.length, 26);
+  assert.deepEqual(weeks.map((w) => w.n), Array.from({ length: 26 }, (_, i) => i + 1));
   assert.equal(weeks[0].start, '2026-10-26');
   assert.equal(weeks[0].end, '2026-11-01');
-  assert.equal(weeks[22].end, '2027-04-04');
+  assert.equal(weeks[25].end, '2027-04-25');
   assert.match(weeks[0].s, /TCP\/IP/);
   assert.match(weeks[0].d, /Arrays/);
   assert.match(weeks[0].o, /CMS 12/);
@@ -26,8 +26,8 @@ test('Optimizely track: Foundations passed, 4 cert sprints, then retake buffer',
 });
 
 test('flags checkpoints, apply week and Tet week', () => {
-  assert.deepEqual(weeks.filter((w) => w.checkpoint).map((w) => w.n), [4, 8, 13, 18, 22]);
-  assert.deepEqual(weeks.filter((w) => w.apply).map((w) => w.n), [21]);
+  assert.deepEqual(weeks.filter((w) => w.checkpoint).map((w) => w.n), [8, 12, 18, 22, 25]);
+  assert.deepEqual(weeks.filter((w) => w.apply).map((w) => w.n), [24]);
   assert.deepEqual(weeks.filter((w) => w.light).map((w) => w.n), [15]);
   assert.equal(weeks[14].start, '2027-02-01');
 });
@@ -36,7 +36,7 @@ test('weekOf finds the week for a date, including year rollover', () => {
   assert.equal(weekOf(weeks, '2026-10-27')?.n, 1);
   assert.equal(weekOf(weeks, '2027-01-01')?.n, 10);
   assert.equal(weekOf(weeks, '2026-10-25'), null);
-  assert.equal(weekOf(weeks, '2027-04-05'), null);
+  assert.equal(weekOf(weeks, '2027-04-26'), null);
 });
 
 test('addDays crosses month boundaries', () => {
@@ -60,12 +60,22 @@ test('daily plan follows the weekly schedule', () => {
   assert.equal(o('2026-11-01').minutes, 30);
 });
 
-test('sprint weeks give Optimizely more time', () => {
-  const o = (day: string) => planFor(weeks[1], day).find((i) => i.slot === 'o')!;
-  assert.match(weeks[1].o, /Sprint/);
-  assert.equal(o('2026-11-02').minutes, 90);
-  assert.equal(o('2026-11-07').minutes, 120);
-  assert.equal(o('2026-11-08').minutes, 45);
+test('sprint weeks drop S/F/A/D and give all tech time to Optimizely', () => {
+  const slots = (day: string) => planFor(weeks[1], day).map((i) => i.slot);
+  assert.match(weeks[1].o, /^Sprint/);
+  assert.deepEqual(slots('2026-11-02'), ['rev', 'o1', 'o2', 'en1', 'en2', 'en3']);
+  assert.deepEqual(slots('2026-11-07'), ['rev', 'o1', 'o2', 'en1', 'en2', 'en3']);
+  assert.deepEqual(slots('2026-11-08'), ['rev', 'o']);
+  const mins = (day: string) => planFor(weeks[1], day).filter((i) => i.strand === 'O').reduce((s, i) => s + i.minutes, 0);
+  assert.equal(mins('2026-11-03'), 180);
+  assert.equal(mins('2026-11-08'), 45);
+});
+
+test('other strands restart on 30/11 with the retake buffer weeks', () => {
+  const dec = planFor(weeks[5], '2026-11-30');
+  assert.deepEqual(dec.map((i) => i.slot), ['rev', 'd', 's', 'o', 'en1', 'en2', 'en3']);
+  assert.match(weeks[5].s, /Linux/);
+  assert.equal(dec.find((i) => i.slot === 'o')!.minutes, 60);
 });
 
 test('weeks without an Optimizely topic have no O slot', () => {

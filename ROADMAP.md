@@ -1,8 +1,8 @@
-# Roadmap 26/10/2026 → 07/04/2027 (23 tuần + 3 ngày, 100% miễn phí, học xen kẽ, kèm chứng chỉ Optimizely)
+# Roadmap 26/10/2026 → 28/04/2027 (26 tuần + 3 ngày, 100% miễn phí, học xen kẽ, kèm chứng chỉ Optimizely)
 
-**Mục tiêu:** nền tảng network/devops/k8s/system design chắc; frontend sâu; hiểu các kiến trúc phổ biến (modular monolith, microservices, micro-frontend, SaaS, multi-tenant); DSA đủ qua vòng phỏng vấn; hiểu cách build và kiểm soát AI; có 1 project nhỏ nhưng thật để show. **Đậu Optimizely CMS PaaS Developer Certification trước 31/12/2026.** Hợp đồng hết tháng 5 nên **bắt đầu nộp đơn từ tuần 21 (15/3)**, tuyển dụng thường mất 1–2 tháng.
+**Mục tiêu:** nền tảng network/devops/k8s/system design chắc; frontend sâu; hiểu các kiến trúc phổ biến (modular monolith, microservices, micro-frontend, SaaS, multi-tenant); DSA đủ qua vòng phỏng vấn; hiểu cách build và kiểm soát AI; có 1 project nhỏ nhưng thật để show. **Đậu cả 5 chứng chỉ Optimizely CMS PaaS (Foundations đã đậu 1/11; 4 cert còn lại thi 7/11–28/11) trước 31/12/2026.** Hợp đồng hết tháng 5 nên **bắt đầu nộp đơn từ tuần 24 (5/4)**, có thể sớm hơn từ tuần 22 (22/3) nếu đã tự tin, tuyển dụng thường mất 1–2 tháng.
 
-**Nhịp học:** 2h tech/ngày × 6 ngày (~12h/tuần) + **1h Optimizely/ngày (T2–T7; CN 30')** + 1h tiếng Anh/ngày. Sau kỳ thi (tuần 10 trở đi) giờ Optimizely được trả lại cho project/mảng yếu. Chủ nhật: review + nghỉ. Tuần 15 (Tết, 1–7/2) chạy nhẹ.
+**Nhịp học:** từ tuần 6 (30/11) 2h tech/ngày × 6 ngày (~12h/tuần) + 1h tiếng Anh/ngày; Optimizely chỉ còn 1h/ngày trong 2 tuần dự phòng thi lại. **Tuần 2–5 (2–29/11) là sprint Optimizely: tạm dừng S/F/A/D, 3h/ngày cho Optimizely (T2–T7; CN 45') + 1h tiếng Anh**, học lại S/F/A/D từ 30/11. Chủ nhật: review + nghỉ. Tuần 15 (Tết, 1–7/2) chạy nhẹ.
 
 **Chi phí:** 0đ. LLM chạy local bằng [Ollama](https://ollama.com) hoặc API free tier; K8s chạy local bằng kind/k3s; cloud dùng free tier hoặc tự host + Cloudflare Tunnel. Phí thi IELTS thật chỉ trả khi cần. Chứng chỉ CKA có phí nên không đưa vào.
 
@@ -20,13 +20,13 @@
 | T7 | Project hoặc Lab (xen kẽ, xem cột T7) + 60' O | 3 |
 | CN | 30' Anki + review tuần (CN đầu tháng: 30' Radar xu hướng, xem bên dưới) + 30' O (ôn + quiz tuần); còn lại nghỉ | 1 |
 
-Tổng/tuần: S ≈ 2.5h (+ T7 khi là lab), F ≈ 3.25h, A ≈ 2h, D ≈ 2.25h, T7 2h, O 6.5h (tuần 1–10). Mỗi chủ đề ra **1 note + 5–10 thẻ Anki + 1 thứ chạy được**. Các tuần 4, 8, 13, 18, 22: T7 dành cho **checkpoint**: tự hỏi đáp 30 câu trộn cả 4 mảng, ghi âm bằng tiếng Anh.
+Tổng/tuần (từ tuần 6): S ≈ 2.5h (+ T7 khi là lab), F ≈ 3.25h, A ≈ 2h, D ≈ 2.25h, T7 2h, O 6.5h (chỉ 2 tuần dự phòng 6–7). Mỗi chủ đề ra **1 note + 5–10 thẻ Anki + 1 thứ chạy được**. Các tuần 8, 12, 18, 22, 25: T7 dành cho **checkpoint**: tự hỏi đáp 30 câu trộn cả 4 mảng, ghi âm bằng tiếng Anh. Bảng ngày ở trên là nhịp bình thường; trong sprint Optimizely (tuần 2–5) thì S/F/A/D nhường chỗ cho Optimizely (xem phần chứng chỉ).
 
 ## Luồng xu hướng 2026: nền tảng + cái mới, không học đồ cũ
 
 Phỏng vấn 2026 (Thoughtworks Radar Vol 34 tháng 4/2026, Stack Overflow Survey 2025, các bài tổng hợp về phỏng vấn) cho thấy: **nền tảng vẫn là ngưỡng đầu vào** (network, DB, system design, debug), nhưng người ta chấm thêm **cách bạn dùng AI và kiểm chứng kết quả của nó**. 84% dev dùng AI nhưng chỉ 33% tin kết quả; nỗi đau lớn nhất là code AI "gần đúng nhưng sai" (66%). Nên kế hoạch có thêm 5 thứ:
 
-1. **Kỹ năng kiểm chứng AI:** mỗi tuần 1 bài D làm kiểu "AI-allowed": nhờ AI giải, bạn tìm bug, chứng minh độ phức tạp, viết test phản biện. Tuần 10, 18, 20 có buổi mock đọc/debug code lạ và review diff do AI sinh.
+1. **Kỹ năng kiểm chứng AI:** mỗi tuần 1 bài D làm kiểu "AI-allowed": nhờ AI giải, bạn tìm bug, chứng minh độ phức tạp, viết test phản biện. Tuần 14, 22, 23 có buổi mock đọc/debug code lạ và review diff do AI sinh.
 2. **AI strand cập nhật:** context engineering (thay cho "prompt cơ bản"), structured output, eval + tracing (Langfuse), tính bền của agent (retry/resume/idempotent), guardrails + sandbox + prompt injection, small language models chạy local. MCP học đúng chỗ của nó: Radar xếp "MCP by default" vào *Caution*, nên phải biết khi nào gọi API thẳng tốt hơn.
 3. **Frontend hiện đại:** React 19 (Compiler, Actions, `useOptimistic`, `use`), RSC, INP, passkeys/WebAuthn, component test chạy trong trình duyệt thật.
 4. **Vận hành hiện đại:** OpenTelemetry là mặc định, DORA metrics, supply chain (SBOM, pin version, Dependabot), zero trust cơ bản (mTLS, NetworkPolicy, RBAC), .NET 10 LTS + Aspire + `Microsoft.Extensions.AI`.
@@ -39,8 +39,8 @@ Tiêu chí lọc xu hướng: có trong ≥2 nguồn độc lập, giải 1 vấ
 1. **Project nhỏ, có người dùng thật:** 1 sản phẩm giải quyết nhu cầu thật (từ khách hàng/bạn bè).
 2. **Thêm gì cũng theo vòng: Vấn đề → Số liệu → Quyết định → ADR.** Chưa có số liệu cho thấy cần cache, queue, k8s hay tách microservice thì **không thêm** vào project; ghi ADR "đã cân nhắc nhưng chưa cần" cũng là kiến thức tốt cho phỏng vấn.
 3. **Thực hành công nghệ trong `labs/` riêng** (repo nhỏ, vứt đi được): Redis, replica, RabbitMQ, k8s, microservices, micro-frontend, Raft… Lab không làm rối project.
-4. **Project lớn lên qua 3 mốc:** v1 MVP cho 3–5 người dùng thật (tuần 8) → v2 vận hành và cấu trúc lại thành modular monolith (tuần 9) → v3 chỉ sửa chỗ nghẽn đã đo được.
-5. **Multi-tenant/SaaS:** nếu sản phẩm thật sự phục vụ nhiều khách hàng thì áp dụng vào project (tuần 13); nếu không, làm trong `labs/`.
+4. **Project lớn lên qua 3 mốc:** v1 MVP cho 3–5 người dùng thật (tuần 12) → v2 vận hành và cấu trúc lại thành modular monolith (tuần 13) → v3 chỉ sửa chỗ nghẽn đã đo được.
+5. **Multi-tenant/SaaS:** nếu sản phẩm thật sự phục vụ nhiều khách hàng thì áp dụng vào project (tuần 18); nếu không, làm trong `labs/`.
 6. **AI trong project:** đúng 1 tính năng AI mà người dùng thật cần, có eval.
 
 ## Lộ trình theo tuần
@@ -50,31 +50,34 @@ S = hạ tầng + system design + kiến trúc · F = frontend sâu · A = AI ·
 | Tuần | Ngày | O (Optimizely) | S | F | A | D | T7 (project/lab/checkpoint) |
 |---|---|---|---|---|---|---|---|
 | 1 | 26/10–1/11 | **Foundations: ĐÃ ĐẬU ✅** (kế hoạch ban đầu thi 29/10, miễn phí; đã mở khóa Core). Phần còn lại: cài CMS 12 nhẹ, đọc blueprint Core Developer |  Network: TCP/IP, DNS, HTTP, TLS | Browser internals: rendering pipeline, critical rendering path | C# gọi LLM (Ollama): token, tham số | Arrays & Hashing | Chọn sản phẩm, viết 1 trang vấn đề + người dùng; thi thử IELTS |
-| 2 | 2–8/11 | **Sprint Core Developer (thi T7 7/11):** T2–T3 DevEx 45% (initialization module, DI, content events, custom editor/property, scheduled job, plugin); T4 Delivery 20% + Security 15% (Graph, access rights, visitor group); T5 Cloud 10% + Access 10% (DXP, Opti ID); T6 thi thử đủ đề trong Exam Lab; T7 thi; CN dự phòng/vá | Linux/shell + Docker | JavaScript sâu: closure, prototype, async, event loop | Structured output (JSON schema), validate + retry | Two Pointers | Skeleton .NET API + React/Next, 1 chức năng cốt lõi |
-| 3 | 9–15/11 | **Sprint Advanced Developer (thi T7 14/11, cần đã đậu Core):** Delivery 30% (Graph query/webhook/auth, headless, content federation), DevEx 30% (repository/content API, localization API, tích hợp), Cloud 20% (DXP CI/CD, deployment API, CDN, monitoring, nâng cấp CMS 13); T6 thi thử; T7 thi | Docker compose + CI/CD (GitHub Actions), supply chain cơ bản (pin version, Dependabot, SBOM) | TypeScript sâu: generics, narrowing, utility types | Context engineering (không chỉ prompt); Karpathy "Intro to LLMs" | Stack | Chức năng cốt lõi + auth |
-| 4 | 16–22/11 | **Sprint Solutions Architect Core (thi T7 21/11):** 30 MCQ thiên về đánh đổi thiết kế: Cloud 20% + Delivery 20% (DXP, Graph), Content Modeling 15%, DevEx 15% (extensibility, tích hợp), Multi-site/ngôn ngữ 10%, Publishing/workflow 10%, Personalization 5%, Access 5%; học từ eLearning end-user CMS + docs; T6 thi thử; T7 thi | Deploy miễn phí (Cloudflare Tunnel/Oracle Free), Nginx, HTTPS; DB: index, execution plan | React internals: render/commit, reconciliation, vì sao re-render; React 19 Actions + `useOptimistic` | Tool calling cơ bản | Binary Search | **Checkpoint 1**; app chạy bằng `docker compose` |
-| 5 | 23–29/11 | **Sprint Solutions Architect Advanced (thi T7 28/11, cần đã đậu SA Core):** 20 MCQ/90': Cloud 28% (DXP, CDN, scaling, HA), Delivery 22%, Multi-site 18%, Access 12% (Opti ID, SSO/SCIM), Personalization 10%, Content Modeling 7%, Assets/DAM 3%; T6 thi thử; T7 thi | DB: transaction, isolation, N+1 (EF Core); log/metric/trace (OpenTelemetry + Aspire dashboard) | React performance: React Compiler vs memo thủ công, Profiler, virtualization, code splitting | Eval mini: 20 case cho 1 tác vụ; tracing LLM bằng Langfuse (self-host) | Sliding Window | Thêm CI + deploy lần đầu |
-| 6 | 30/11–6/12 | Dự phòng retake: cert nào chưa đậu thì thi lại (chờ 2 ngày giữa các lần; tối đa 3 lần/quý mỗi cert) + vá domain yếu bằng Exam Lab; đậu hết thì dùng giờ này cho project | k6 load test, ước lượng tải, SLO + DORA metrics; khung system design | State & data fetching: server state vs client state (TanStack Query), cache, optimistic update, `use` + Suspense | Embeddings + vector search (pgvector) | Linked List | Hoàn thiện tính năng cho người dùng thử |
-| 7 | 7–13/12 | Dự phòng retake lần cuối (miễn phí đến 31/12); đậu hết thì để trống | SD: cache, CDN, load balancer, replication, sharding | Web performance: Core Web Vitals (LCP, INP, CLS), bundle, ảnh/font, caching | RAG: chunking, hybrid search + rerank | Trees | Lab Redis trong `labs/` |
-| 8 | 14–20/12 | — | SD: queue, pub/sub, outbox, idempotency | Next.js rendering: SSR/SSG/ISR/streaming/RSC + Server Actions; so với Nuxt | RAG: phân tích lỗi + eval retrieval | Trees (BST/BFS) | **v1:** 3–5 người dùng thật; **Checkpoint 2** rút gọn 15 câu |
-| 9 | 21–27/12 | — | Kiến trúc: modular monolith vs microservices, DDD bounded context, Clean Architecture | Web security: XSS, CSRF, CSP, CORS, OAuth2/OIDC, passkeys/WebAuthn | Agent loop (Anthropic + HF Agents unit 1–2) | Heap | Chuyển project sang modular monolith + ADR; đo điểm nghẽn thật |
-| 10 | 28/12–3/1 | — | K8s 1: Pod, Deployment, Service (kind) | Testing: Vitest (browser mode), Testing Library, Playwright; mock đọc/debug code lạ | Agent có 2 tool, giới hạn số bước, log từng bước, retry/resume idempotent (tính bền) | Backtracking | Lab: image của project chạy trên kind |
-| 11 | 4–10/1 | — | Microservices thực hành: tách service, API gateway, saga, contract test; Polly (timeout/retry/circuit breaker) | Accessibility + design system + CSS architecture | Eval agent: phân loại lỗi, LLM-as-judge | Graphs BFS/DFS | Lab: 2 service + gateway trong `labs/microservices` |
-| 12 | 11–17/1 | — | K8s 2: ConfigMap, Secret, probes, Ingress, TLS | Micro-frontend: các cách tiếp cận, Module Federation, Web Components, khi nào *không* nên dùng | Guardrails: prompt injection, "lethal trifecta", quyền của tool, sandbox (OWASP GenAI) | Graphs 2 (grid, Union-Find) | Lab: 2 app React ghép bằng Module Federation trong `labs/microfrontend` |
-| 13 | 18–24/1 | — | SaaS + multi-tenancy: mô hình tenant (DB riêng/schema/row-level), isolation, quota, auth theo tenant | Multi-tenant frontend: theming/white-label, feature flag, subdomain routing | Zero to Hero: micrograd, makemore | Tries + Intervals | Project: `tenant_id` + EF Core global query filter nếu cần; **Checkpoint 3** |
-| 14 | 25–31/1 | — | K8s 3: Helm, HPA, debug (CrashLoopBackOff, OOMKilled); zero trust cơ bản (RBAC, NetworkPolicy, mTLS) | Frontend architecture: monorepo, feature-sliced, error handling, observability (Sentry, RUM) | Zero to Hero: build GPT; HF LLM Course; small language models chạy local (quantization) | DP 1D | Lab k8s: Helm chart + HPA, ghi 5 lỗi đã gặp |
+| 2 | 2–8/11 | **Sprint Core Developer (thi T7 7/11):** T2–T3 DevEx 45% (initialization module, DI, content events, custom editor/property, scheduled job, plugin); T4 Delivery 20% + Security 15% (Graph, access rights, visitor group); T5 Cloud 10% + Access 10% (DXP, Opti ID); T6 thi thử đủ đề trong Exam Lab; T7 thi; CN dự phòng/vá | ⏸ Tạm dừng | ⏸ Tạm dừng | ⏸ Tạm dừng | ⏸ Tạm dừng | Thi cert chiều T7; không project |
+| 3 | 9–15/11 | **Sprint Advanced Developer (thi T7 14/11, cần đã đậu Core):** Delivery 30% (Graph query/webhook/auth, headless, content federation), DevEx 30% (repository/content API, localization API, tích hợp), Cloud 20% (DXP CI/CD, deployment API, CDN, monitoring, nâng cấp CMS 13); T6 thi thử; T7 thi | ⏸ Tạm dừng | ⏸ Tạm dừng | ⏸ Tạm dừng | ⏸ Tạm dừng | Thi cert chiều T7; không project |
+| 4 | 16–22/11 | **Sprint Solutions Architect Core (thi T7 21/11):** 30 MCQ thiên về đánh đổi thiết kế: Cloud 20% + Delivery 20% (DXP, Graph), Content Modeling 15%, DevEx 15% (extensibility, tích hợp), Multi-site/ngôn ngữ 10%, Publishing/workflow 10%, Personalization 5%, Access 5%; học từ eLearning end-user CMS + docs; T6 thi thử; T7 thi | ⏸ Tạm dừng | ⏸ Tạm dừng | ⏸ Tạm dừng | ⏸ Tạm dừng | Thi cert chiều T7; không project |
+| 5 | 23–29/11 | **Sprint Solutions Architect Advanced (thi T7 28/11, cần đã đậu SA Core):** 20 MCQ/90': Cloud 28% (DXP, CDN, scaling, HA), Delivery 22%, Multi-site 18%, Access 12% (Opti ID, SSO/SCIM), Personalization 10%, Content Modeling 7%, Assets/DAM 3%; T6 thi thử; T7 thi | ⏸ Tạm dừng | ⏸ Tạm dừng | ⏸ Tạm dừng | ⏸ Tạm dừng | Thi cert chiều T7; không project |
+| 6 | 30/11–6/12 | Dự phòng retake: cert nào chưa đậu thì thi lại (chờ 2 ngày giữa các lần; tối đa 3 lần/quý mỗi cert) + vá domain yếu bằng Exam Lab; đậu hết thì dùng giờ này cho project | Linux/shell + Docker | JavaScript sâu: closure, prototype, async, event loop | Structured output (JSON schema), validate + retry | Two Pointers | Skeleton .NET API + React/Next, 1 chức năng cốt lõi |
+| 7 | 7–13/12 | Dự phòng retake lần cuối (miễn phí đến 31/12); đậu hết thì để trống | Docker compose + CI/CD (GitHub Actions), supply chain cơ bản (pin version, Dependabot, SBOM) | TypeScript sâu: generics, narrowing, utility types | Context engineering (không chỉ prompt); Karpathy "Intro to LLMs" | Stack | Chức năng cốt lõi + auth |
+| 8 | 14–20/12 | — | Deploy miễn phí (Cloudflare Tunnel/Oracle Free), Nginx, HTTPS; DB: index, execution plan | React internals: render/commit, reconciliation, vì sao re-render; React 19 Actions + `useOptimistic` | Tool calling cơ bản | Binary Search | **Checkpoint 1**; app chạy bằng `docker compose` |
+| 9 | 21–27/12 | — | DB: transaction, isolation, N+1 (EF Core); log/metric/trace (OpenTelemetry + Aspire dashboard) | React performance: React Compiler vs memo thủ công, Profiler, virtualization, code splitting | Eval mini: 20 case cho 1 tác vụ; tracing LLM bằng Langfuse (self-host) | Sliding Window | Thêm CI + deploy lần đầu |
+| 10 | 28/12–3/1 | — | k6 load test, ước lượng tải, SLO + DORA metrics; khung system design | State & data fetching: server state vs client state (TanStack Query), cache, optimistic update, `use` + Suspense | Embeddings + vector search (pgvector) | Linked List | Hoàn thiện tính năng cho người dùng thử |
+| 11 | 4–10/1 | — | SD: cache, CDN, load balancer, replication, sharding | Web performance: Core Web Vitals (LCP, INP, CLS), bundle, ảnh/font, caching | RAG: chunking, hybrid search + rerank | Trees | Lab Redis trong `labs/` |
+| 12 | 11–17/1 | — | SD: queue, pub/sub, outbox, idempotency | Next.js rendering: SSR/SSG/ISR/streaming/RSC + Server Actions; so với Nuxt | RAG: phân tích lỗi + eval retrieval | Trees (BST/BFS) | **v1:** 3–5 người dùng thật; **Checkpoint 2** rút gọn 15 câu |
+| 13 | 18–24/1 | — | Kiến trúc: modular monolith vs microservices, DDD bounded context, Clean Architecture | Web security: XSS, CSRF, CSP, CORS, OAuth2/OIDC, passkeys/WebAuthn | Agent loop (Anthropic + HF Agents unit 1–2) | Heap | Chuyển project sang modular monolith + ADR; đo điểm nghẽn thật |
+| 14 | 25–31/1 | — | K8s 1: Pod, Deployment, Service (kind) | Testing: Vitest (browser mode), Testing Library, Playwright; mock đọc/debug code lạ | Agent có 2 tool, giới hạn số bước, log từng bước, retry/resume idempotent (tính bền) | Backtracking | Lab: image của project chạy trên kind |
 | 15 | 1–7/2 | — | *Nghỉ Tết nhẹ:* ôn Anki, đọc nhẹ | Ôn nhẹ | Xem video | Ôn bài sai | Không build mới |
-| 16 | 8–14/2 | — | SD case 1: URL shortener, rate limiter, news feed | Frontend system design: feed, typeahead, infinite scroll, server-driven UI | MCP (viết 1 server nhỏ; khi nào gọi API thẳng tốt hơn), cost/latency, cache | DP 2D | Chọn **1 tính năng AI** cho project dựa trên phản hồi người dùng |
-| 17 | 15–21/2 | — | Event-driven, CQRS, durable execution (workflow, saga); tổng quan Raft/leader election | Real-time (WebSocket/SSE), offline/PWA | Xây tính năng AI trong project, có trace Langfuse | Greedy | Tiếp tục tính năng AI |
-| 18 | 22–28/2 | — | SD case 2: chat, notification, payment, flash sale; thiết kế hệ thống có LLM/RAG (gateway, cache, cost) | FE Q&A: JS/React/TS + FE system design (mock); review diff do AI sinh | Eval so sánh 2 phiên bản prompt/model, eval trong CI, feedback flywheel | Dijkstra, Topological Sort | **Checkpoint 4**; README + sơ đồ + demo GIF |
-| 19 | 1–7/3 | — | Học bù/đào sâu mảng còn yếu (k8s, microservices, multi-tenant, network); SD case thêm: ticketing, file storage | Học bù/đào sâu (micro-frontend, performance, security) | Hoàn thiện tính năng AI + eval | Medium trộn, bấm giờ | Hoàn thiện project: README + sơ đồ + demo GIF |
-| 20 | 8–14/3 | — | Mock system design (kể cả SaaS multi-tenant); ôn k8s/network/DB | Mock FE + FE system design | Mock AI + mock "AI-allowed" (tiếng Anh): điều khiển AI, kiểm chứng, giải thích quyết định | Medium trộn, bấm giờ | CV tiếng Anh, LinkedIn, GitHub; 6 câu chuyện STAR bằng tiếng Anh |
-| 21 | 15–21/3 | — | Mock + ôn mảng yếu | Mock + ôn | Ôn | 2 bài/45' | **Bắt đầu nộp đơn (10/tuần)**; 2 mock/tuần |
-| 22 | 22–28/3 | — | Ôn theo phỏng vấn thật | Ôn theo phỏng vấn thật | Ôn | 2 bài/45' | **Checkpoint 5**; phỏng vấn thật, ghi câu bị hỏi vào `notes/interview/` |
-| 23 | 29/3–4/4 | — | Ôn điểm yếu | Ôn điểm yếu | Ôn | 2 bài/45' | Nộp thêm đơn, phỏng vấn tiếp, đàm phán lương |
-| — | 5–7/4 | | Retrospective | | | | Chốt offer hoặc kế hoạch tiếp (freelance, remote part-time) |
+| 16 | 8–14/2 | — | Microservices thực hành: tách service, API gateway, saga, contract test; Polly (timeout/retry/circuit breaker) | Accessibility + design system + CSS architecture | Eval agent: phân loại lỗi, LLM-as-judge | Graphs BFS/DFS | Lab: 2 service + gateway trong `labs/microservices` |
+| 17 | 15–21/2 | — | K8s 2: ConfigMap, Secret, probes, Ingress, TLS | Micro-frontend: các cách tiếp cận, Module Federation, Web Components, khi nào *không* nên dùng | Guardrails: prompt injection, "lethal trifecta", quyền của tool, sandbox (OWASP GenAI) | Graphs 2 (grid, Union-Find) | Lab: 2 app React ghép bằng Module Federation trong `labs/microfrontend` |
+| 18 | 22–28/2 | — | SaaS + multi-tenancy: mô hình tenant (DB riêng/schema/row-level), isolation, quota, auth theo tenant | Multi-tenant frontend: theming/white-label, feature flag, subdomain routing | Zero to Hero: micrograd, makemore | Tries + Intervals | Project: `tenant_id` + EF Core global query filter nếu cần; **Checkpoint 3** |
+| 19 | 1–7/3 | — | K8s 3: Helm, HPA, debug (CrashLoopBackOff, OOMKilled); zero trust cơ bản (RBAC, NetworkPolicy, mTLS) | Frontend architecture: monorepo, feature-sliced, error handling, observability (Sentry, RUM) | Zero to Hero: build GPT; HF LLM Course; small language models chạy local (quantization) | DP 1D | Lab k8s: Helm chart + HPA, ghi 5 lỗi đã gặp |
+| 20 | 8–14/3 | — | SD case 1: URL shortener, rate limiter, news feed | Frontend system design: feed, typeahead, infinite scroll, server-driven UI | MCP (viết 1 server nhỏ; khi nào gọi API thẳng tốt hơn), cost/latency, cache | DP 2D | Chọn **1 tính năng AI** cho project dựa trên phản hồi người dùng |
+| 21 | 15–21/3 | — | Event-driven, CQRS, durable execution (workflow, saga); tổng quan Raft/leader election | Real-time (WebSocket/SSE), offline/PWA | Xây tính năng AI trong project, có trace Langfuse | Greedy | Tiếp tục tính năng AI |
+| 22 | 22–28/3 | — | SD case 2: chat, notification, payment, flash sale; thiết kế hệ thống có LLM/RAG (gateway, cache, cost) | FE Q&A: JS/React/TS + FE system design (mock); review diff do AI sinh | Eval so sánh 2 phiên bản prompt/model, eval trong CI, feedback flywheel | Dijkstra, Topological Sort | **Checkpoint 4**; README + sơ đồ + demo GIF |
+| 23 | 29/3–4/4 | — | Mock system design (kể cả SaaS multi-tenant); ôn k8s/network/DB | Mock FE + FE system design | Mock AI + mock "AI-allowed" (tiếng Anh): điều khiển AI, kiểm chứng, giải thích quyết định | Medium trộn, bấm giờ | CV tiếng Anh, LinkedIn, GitHub; 6 câu chuyện STAR bằng tiếng Anh |
+| 24 | 5–11/4 | — | Mock + ôn mảng yếu | Mock + ôn | Ôn | 2 bài/45' | **Bắt đầu nộp đơn (10/tuần)**; 2 mock/tuần |
+| 25 | 12–18/4 | — | Ôn theo phỏng vấn thật | Ôn theo phỏng vấn thật | Ôn | 2 bài/45' | **Checkpoint 5**; phỏng vấn thật, ghi câu bị hỏi vào `notes/interview/` |
+| 26 | 19–25/4 | — | Ôn điểm yếu | Ôn điểm yếu | Ôn | 2 bài/45' | Nộp thêm đơn, phỏng vấn tiếp, đàm phán lương |
+| — | 26–28/4 | | Retrospective | | | | Chốt offer hoặc kế hoạch tiếp (freelance, remote part-time) |
 
-Tuần nào quá tải: giữ S + D + O, giảm F hoặc A, đừng bỏ cả 4 mảng. Tuần 19–20 để đào sâu và mock, từ tuần 21 các mảng chuyển sang chế độ ôn + phỏng vấn thật.
+Tuần nào quá tải: giữ S + D + O, giảm F hoặc A, đừng bỏ cả 4 mảng. Tuần 23 để mock, từ tuần 24 các mảng chuyển sang chế độ ôn + phỏng vấn thật. (Đã bỏ tuần "học bù" cũ để bù 4 tuần sprint Optimizely; tuần nào hụt thì dùng T7 để bù.)
 
 ## Chứng chỉ Optimizely CMS PaaS (đã đậu Foundations 1/11; 4 cert còn lại làm trong 4 tuần, thi miễn phí đến 31/12/2026)
 
@@ -103,7 +106,7 @@ Nguồn chính: certification.optimizely.com (trang exams, program, FAQ, bluepri
 
 **Con đường chứng chỉ của mình:** Foundations ✅ → Developer Core (7/11) → Developer Advanced (14/11, cần Core) → Solutions Architect Core (21/11) → Solutions Architect Advanced (28/11, cần SA Core); mỗi cert 1 tuần, vì Optimizely cho thi miễn phí đến hết 31/12/2026. Các Core khác (Graph, Opti ID là mini-cert) bám sát domain Content Delivery và Access Control, rẻ để lấy thêm và giúp đủ điều kiện Champion/Master.
 
-**Sprint 4 tuần dùng công cụ nào:** app **Optimizely Exam Lab** (trang `/opti` của web, số liệu lưu Supabase). AI viết câu MCQ và scenario *chỉ từ docs.optimizely.com* (mỗi câu kèm link nguồn để đối chiếu), thi thử đúng tỉ trọng blueprint của từng cert, đếm giờ 75/90 phút, tự chấm MCQ, AI chấm scenario theo từng yêu cầu + chấm lý do (rationale), và thống kê độ chính xác theo domain. Mỗi ngày của sprint: Optimizely 90 phút (T7 120 phút, CN 45 phút); các mảng S/F/A/D vẫn học như thường, nếu quá tải thì giảm F hoặc A trong 4 tuần này.
+**Sprint 4 tuần dùng công cụ nào:** app **Optimizely Exam Lab** (trang `/opti` của web, số liệu lưu Supabase). AI viết câu MCQ và scenario *chỉ từ docs.optimizely.com* (mỗi câu kèm link nguồn để đối chiếu), thi thử đúng tỉ trọng blueprint của từng cert, đếm giờ 75/90 phút, tự chấm MCQ, AI chấm scenario theo từng yêu cầu + chấm lý do (rationale), và thống kê độ chính xác theo domain. Mỗi ngày của sprint (tuần 2–5): Optimizely 3 giờ (T2–T7, gồm 1,5h học + 1,5h luyện Exam Lab; CN 45 phút) + 1h tiếng Anh. S/F/A/D tạm dừng hoàn toàn, học lại từ tuần 6 (30/11) bằng đúng nội dung đã lên lịch.
 
 **Link Academy của leader đủ cho 4 cert chưa?** Kiểm tra ngày 1/11/2026 trên [Academy, Developer eLearning](https://academy.optimizely.com/student/catalog/list?category_ids=42954-developer-elearning):
 - Có: path *PaaS CMS 12 for Developers Core*, *PaaS CMS 13 for Developers Core*, *PaaS CMS 13 for Developers Advanced* (kiến trúc, content modeling, rendering, DI, scheduled jobs, access rights, performance, DXP, CI/CD; Advanced có federation, repository API, localization, nâng cấp, Graph). Không có path CMS 12 Advanced và **không có path Solutions Architect**.
@@ -134,7 +137,7 @@ Hiểu: Developer đi sâu code + API; Advanced tăng trọng Cloud và Delivery
 
 **Quy định thi (FAQ):** proctored toàn màn hình, không đổi tab/cửa sổ (3 lần vi phạm là bị kết thúc), không copy/paste, không tài liệu ngoài; timer không dừng; thoát giữa chừng tính là 1 lần trượt; scenario có editor code/config, nên dùng laptop.
 
-**Cách học mảng O trong sprint 1 tuần/cert (90'/ngày, T7 120', CN 45'):**
+**Cách học mảng O trong sprint 1 tuần/cert (3h/ngày: 1,5h học + 1,5h luyện đề; CN 45'):**
 1. T2–T3: đọc bài học O của tuần (có link nguồn) + blueprint + docs/Academy cho domain trọng số cao nhất; tạo 8 câu/domain trong Exam Lab (`/opti`) rồi luyện từng domain.
 2. T4–T5: lab nhanh trên CMS 12 (Alloy) cho các chủ đề hay sai; mọi câu sai ghi vào sổ lỗi, mở link nguồn đọc lại.
 3. T6: thi thử đầy đủ có bấm giờ (75'/90'); domain điểm thấp × trọng số cao thì dồn thời gian.
@@ -178,12 +181,12 @@ Bạn đang B2 VSTEP (thường tương đương IELTS khoảng 5.5–6.0, chỉ
 |---|---|
 | Tuần 1 | Thi thử IELTS miễn phí (British Council có practice test free, [IELTS Liz](https://ieltsliz.com)) để lấy baseline |
 | Hằng tuần | 1 bài writing hoặc 1 bộ listening/reading, ghi lỗi lặp lại; 1–2 buổi nói với AI hoặc bạn học |
-| Cuối tháng 12, tuần 18 | Thi thử lại, theo dõi band |
-| Tuần 21 trở đi | Quyết định có cần thi IELTS thật không (phần lớn job remote cần giao tiếp hơn chứng chỉ; có thể nộp kèm VSTEP B2 và bài viết/video tiếng Anh) |
+| Cuối tháng 12, tuần 9 | Thi thử lại, theo dõi band |
+| Tuần 24 trở đi | Quyết định có cần thi IELTS thật không (phần lớn job remote cần giao tiếp hơn chứng chỉ; có thể nộp kèm VSTEP B2 và bài viết/video tiếng Anh) |
 
 ## Kiếm thêm + quỹ dự phòng
 
 - Mở quỹ dự phòng 3–6 tháng chi phí; tự động chuyển một khoản cố định mỗi tháng.
 - Đề xuất ở công ty những việc thật: CI/CD, logging/monitoring, load test, tài liệu kiến trúc.
 - Project nhỏ có người dùng thật là nền để sau này bán hoặc nhận làm thêm.
-- Từ tuần 21: nhận task nhỏ trên nền tảng freelance nếu còn thời gian.
+- Từ tuần 24: nhận task nhỏ trên nền tảng freelance nếu còn thời gian.
