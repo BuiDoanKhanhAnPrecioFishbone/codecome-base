@@ -130,3 +130,12 @@ export function useTitle(title: string) {
     document.title = `${title} · amberjack`;
   }, [title]);
 }
+
+/** Short headline for a long roadmap cell (mirrors shortTopic in the server's roadmap.ts). */
+export function shortTopic(text: string, max = 60): string {
+  const t = text.trim();
+  if (t.length <= max) return t;
+  const head = t.split(/[:;]/)[0].trim();
+  if (head.length >= 8 && head.length <= max) return head;
+  return `${t.slice(0, max - 1).trimEnd()}…`;
+}

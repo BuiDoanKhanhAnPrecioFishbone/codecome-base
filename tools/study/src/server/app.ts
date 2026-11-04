@@ -12,7 +12,7 @@ import { applyReview, previewIntervals, syncCards, State, type ReviewEntry, type
 import type { Grade } from '../store.ts';
 import { HttpError, checkNotePath, createNote, listNotes, readNote, titleOf, writeNote } from './notes.ts';
 import { STRAND_LABEL, lessonKey, parseLessonKey, readLesson, topicOf, writeLesson } from './lessons.ts';
-import { addDays, dayKey, loadRoadmap, planFor, weekOf, type Week } from './roadmap.ts';
+import { addDays, dayKey, loadRoadmap, planFor, shortTopic, weekOf, type Week } from './roadmap.ts';
 import { verifyLinks } from '../sources.ts';
 import { optiApp } from './opti.ts';
 
@@ -265,7 +265,7 @@ export function createApp(ctx: Ctx) {
       const w = loadRoadmap(paths.roadmapFile).find((x) => x.n === week);
       if (!w) throw new HttpError(404, 'Không có tuần này trong ROADMAP.md');
       const lesson = await readLesson(storage, lessonKey(week, strand));
-      return ok({ week, strand, topic: topicOf(w, strand), exists: lesson !== null, ...(lesson ?? {}) });
+      return ok({ week, strand, topic: topicOf(w, strand), title: shortTopic(topicOf(w, strand)), exists: lesson !== null, ...(lesson ?? {}) });
     },
 
     'POST /api/lesson/gen': async (_q, body) => {

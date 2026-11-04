@@ -9,6 +9,7 @@ interface LessonData {
   week: number;
   strand: Strand;
   topic: string;
+  title: string;
   exists: boolean;
   content?: string;
   source?: 'curated' | 'ai';
@@ -25,7 +26,7 @@ export default function LessonPage() {
   const navigate = useNavigate();
   const lesson = useApi<LessonData>(`/api/lesson?week=${encodeURIComponent(week)}&strand=${encodeURIComponent(strand)}`);
   const today = useToday();
-  useTitle(lesson.data?.topic ?? 'Bài học');
+  useTitle(lesson.data?.title ?? 'Bài học');
 
   const slot = params.get('slot');
   const date = params.get('date');
@@ -87,9 +88,9 @@ export default function LessonPage() {
   async function makeNote() {
     const r = await run(async () => {
       try {
-        return await post<{ path: string }>('/api/notes', { area, title: l.topic });
+        return await post<{ path: string }>('/api/notes', { area, title: l.title });
       } catch (e) {
-        if (e instanceof ApiError && e.status === 409) return { path: `${area}/${slugOf(l.topic)}.md` };
+        if (e instanceof ApiError && e.status === 409) return { path: `${area}/${slugOf(l.title)}.md` };
         throw e;
       }
     });
@@ -103,7 +104,13 @@ export default function LessonPage() {
           TUẦN {l.week} · {l.strand}
           {l.source ? ` · ${l.source === 'ai' ? 'AI VIẾT (DEEPSEEK)' : 'VIẾT TAY'}` : ''}
         </Eyebrow>
-        <h1 className="h1 h1-md">{l.topic}</h1>
+        <h1 className="h1 h1-md h1-lesson">{l.title}</h1>
+        {l.title !== l.topic && (
+          <details className="lesson-scope">
+            <summary>Phạm vi tuần</summary>
+            <p>{l.topic}</p>
+          </details>
+        )}
         <div className="row gap10 mt14">
           <Pill area={l.strand === 'S' ? 'network' : DEFAULT_AREA[l.strand]} label={LABEL[l.strand]} />
           {l.updated && <span className="mono muted">SỬA {fmtDay(l.updated.slice(0, 10))}</span>}

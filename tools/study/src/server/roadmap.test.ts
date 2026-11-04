@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { ROOT } from '../paths.ts';
-import { addDays, parseRoadmap, planFor, weekOf } from './roadmap.ts';
+import { addDays, parseRoadmap, planFor, shortTopic, weekOf } from './roadmap.ts';
 
 const weeks = parseRoadmap(readFileSync(`${ROOT}ROADMAP.md`, 'utf8'));
 
@@ -58,6 +58,14 @@ test('daily plan follows the weekly schedule', () => {
   const o = (day: string) => planFor(w1, day).find((i) => i.slot === 'o')!;
   assert.equal(o('2026-10-26').minutes, 60);
   assert.equal(o('2026-11-01').minutes, 30);
+});
+
+test('shortTopic keeps short text and cuts long cells at the colon', () => {
+  assert.equal(shortTopic('Network: TCP/IP, DNS'), 'Network: TCP/IP, DNS');
+  assert.equal(shortTopic(`Sprint Core Developer (thi T7 7/11): ${'x'.repeat(200)}`), 'Sprint Core Developer (thi T7 7/11)');
+  assert.ok(shortTopic('y'.repeat(200)).length <= 60);
+  const sprint = planFor(weeks[1], '2026-11-03');
+  assert.ok(sprint.every((i) => i.title.length < 100));
 });
 
 test('sprint weeks drop S/F/A/D and give all tech time to Optimizely', () => {

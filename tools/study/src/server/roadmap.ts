@@ -46,6 +46,15 @@ export function addDays(k: string, n: number): string {
 
 const clean = (s: string) => s.replace(/\*\*/g, '').replace(/\*/g, '').trim();
 
+/** Short headline for a long roadmap cell: the part before the first colon, else a truncation. */
+export function shortTopic(text: string, max = 60): string {
+  const t = text.trim();
+  if (t.length <= max) return t;
+  const head = t.split(/[:;]/)[0].trim();
+  if (head.length >= 8 && head.length <= max) return head;
+  return `${t.slice(0, max - 1).trimEnd()}…`;
+}
+
 /** Reads the weekly table (`| n | dates | O | S | F | A | D | T7 |`) from ROADMAP.md. */
 export function parseRoadmap(markdown: string, start: string = ROADMAP_START): Week[] {
   const weeks: Week[] = [];
@@ -94,10 +103,10 @@ export function planFor(week: Week | null, key: string): PlanItem[] {
   const dow = parseDayKey(key).getDay();
   const sunday = dow === 0;
   if (week && /^Sprint/i.test(week.o)) {
-    if (sunday) return [review(10, 'Ôn thẻ đến hạn'), optimizely(45, `Optimizely: ôn sổ lỗi + chuẩn bị tuần sau (${week.o})`, 'o')];
+    if (sunday) return [review(10, 'Ôn thẻ đến hạn'), optimizely(45, `Optimizely: ôn sổ lỗi + chuẩn bị tuần sau`, 'o', week.o)];
     return [
       review(10, 'Ôn thẻ đến hạn'),
-      optimizely(90, `Optimizely: học ${week.o}`, 'o1', 'Đọc bài học O của tuần + docs nguồn; ghi sổ lỗi'),
+      optimizely(90, `Optimizely: học ${shortTopic(week.o)}`, 'o1', 'Đọc bài học O của tuần + docs nguồn; ghi sổ lỗi'),
       optimizely(90, 'Optimizely: luyện đề trong Exam Lab', 'o2', 'Tạo câu hỏi, luyện theo domain, thi thử bấm giờ (/opti)'),
       ...ENGLISH,
     ];
@@ -106,7 +115,7 @@ export function planFor(week: Week | null, key: string): PlanItem[] {
   if (!week?.o) return items;
   const o = optimizely(
     sunday ? 30 : 60,
-    sunday ? `Optimizely: ôn lại + quiz tuần (${week.o})` : `Optimizely: ${week.o}`,
+    sunday ? `Optimizely: ôn lại + quiz tuần (${shortTopic(week.o, 40)})` : `Optimizely: ${shortTopic(week.o)}`,
     'o',
     'Luyện đề trong Exam Lab (/opti) + vá domain yếu',
   );
@@ -125,7 +134,9 @@ const optimizely = (minutes: number, title: string, slot: string, detail?: strin
 
 function coreDay(week: Week | null, key: string): PlanItem[] {
   const dow = parseDayKey(key).getDay();
-  const w = week ?? { s: '', f: '', a: '', d: '', t7: '' };
+  const w = week
+    ? { s: shortTopic(week.s), f: shortTopic(week.f), a: shortTopic(week.a), d: shortTopic(week.d), t7: shortTopic(week.t7, 80) }
+    : { s: '', f: '', a: '', d: '', t7: '' };
   switch (dow) {
     case 1:
       return [

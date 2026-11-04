@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { post, type BacklogItem, type PlanItem, type Strand } from '../api.ts';
 import {
-  ErrorBox, Eyebrow, Hero, Loading, Pill, fmtDM, fmtDay, fmtMinutes, msg, noteLink, pct, useTitle, useToday, weekdayLong, weekdayShort,
+  ErrorBox, Eyebrow, Hero, Loading, Pill, fmtDM, fmtDay, fmtMinutes, msg, noteLink, pct, shortTopic, useTitle, useToday, weekdayLong, weekdayShort,
 } from '../lib.tsx';
 
 const STRAND: Record<Strand, { label: string; area: string }> = {
@@ -217,7 +217,15 @@ export default function TodayPage() {
                       <span className="mono strong">{k}</span>
                       <Pill area={STRAND[k].area} label={STRAND[k].label} />
                     </div>
-                    <div className="week-text">{v}</div>
+                    <div className="week-text">
+                      {shortTopic(v, 90)}
+                      {shortTopic(v, 90) !== v && (
+                        <details className="week-more">
+                          <summary>Xem đủ</summary>
+                          {v}
+                        </details>
+                      )}
+                    </div>
                   </div>
                 ))}
                 <div className="week-row">
